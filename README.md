@@ -1,0 +1,5 @@
+# Config
+
+`brew install chezmoi`
+
+
