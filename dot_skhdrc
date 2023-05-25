@@ -6,6 +6,7 @@ f4 : open -a /Applications/Google\ Chrome.app/
 
 f6 : open -a /Applications/Figma.app/
 f7 : open -a /Applications/Notion.app/
+f11 : open -a /Applications/Toggl Track.app/
 f12 : open -a /Applications/Spotify.app/
 
 
