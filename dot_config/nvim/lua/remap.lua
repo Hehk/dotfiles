@@ -26,14 +26,15 @@ vim.opt.scrolloff = 8
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
-vim.opt.colorcolumn = "80"
 -- Save all my yanks to the clipboard
 vim.opt.clipboard="unnamed"
 
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-vim.keymap.set("n", "]m", ":move -2<CR>")
-vim.keymap.set("n", "[m", ":move +1<CR>")
+vim.keymap.set("v", "<A-j>", ":move '>+1<CR>gv=gv")
+vim.keymap.set("n", "<A-j>", ":move +1<CR>")
+vim.keymap.set("i", "<A-j>", "<Esc>:move +1<CR>==gi")
+vim.keymap.set("v", "<A-k>", ":move '<-2<CR>gv=gv")
+vim.keymap.set("n", "<A-k>", ":move -2<CR>")
+vim.keymap.set("i", "<A-k>", "<Esc>:move -2<CR>==gi")
 
 vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")

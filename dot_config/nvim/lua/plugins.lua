@@ -36,14 +36,12 @@ return require("packer").startup(function(use)
 	use({ "tpope/vim-fugitive", disable = vim.g.vscode })
 	use({ "github/copilot.vim", disable = vim.g.vscode })
 	use({ "rebelot/kanagawa.nvim", disable = vim.g.vscode })
-  use({ 'catppuccin/nvim', disable = vim.g.vscode })
+	use({ "catppuccin/nvim", disable = vim.g.vscode })
 	use({
 		"folke/trouble.nvim",
 		requires = "nvim-tree/nvim-web-devicons",
 		disable = vim.g.vscode,
 	})
-
-	use({ "nvim-lualine/lualine.nvim", disable = vim.g.vscode })
 
 	use({
 		"sourcegraph/sg.nvim",
@@ -69,7 +67,10 @@ return require("packer").startup(function(use)
 			{ "L3MON4D3/LuaSnip" },
 		},
 	})
-
+	use("nvim-lualine/lualine.nvim")
 	use("mhartington/formatter.nvim")
 	use("stevearc/oil.nvim")
+	use("rakr/vim-two-firewatch")
+	use({ "rose-pine/neovim", as = "rose-pine" })
+  use({ "atelierbram/Base2Tone-nvim" })
 end)

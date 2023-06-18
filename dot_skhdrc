@@ -3,6 +3,7 @@ f2 : open -a /Applications/iTerm.app/
 shift - f2 : open -a /Applications/Visual\ Studio\ Code.app/
 f3 : open -a /Applications/Logseq.app/
 f4 : open -a /Applications/Google\ Chrome.app/
+f5 : open -a /Applications/Arc.app/ "https://chat.openai.com/?model=gpt-4"
 
 f6 : open -a /Applications/Figma.app/
 f7 : open -a /Applications/Notion.app/

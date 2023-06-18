@@ -33,27 +33,49 @@ function SetColors(color)
 				TelescopePreviewNormal = { bg = theme.ui.bg_dim },
 				TelescopePreviewBorder = { bg = theme.ui.bg_dim, fg = theme.ui.bg_dim },
 
-        TreesitterContextLineNumber = { bg = theme.ui.bg_p1, fg = theme.ui.fg_dim },
-        TreesitterContext = { bg = theme.ui.bg_p1, fg = theme.ui.fg_dim },
+				TreesitterContextLineNumber = { bg = theme.ui.bg_p1, fg = theme.ui.fg_dim },
+				TreesitterContext = { bg = theme.ui.bg_p1, fg = theme.ui.fg_dim },
 				CursorLine = { bg = theme.ui.bg_p1 },
-        CursorLineNr = { bg = theme.ui.bg_p1 },
+				CursorLineNr = { bg = theme.ui.bg_p1 },
 			}
 		end,
 	})
 	require("catppuccin").setup({
 		flavor = "mocha",
+		background = {
+			dark = "mocha",
+			light = "latte",
+		},
 		integrations = {
 			telescope = true,
 			cmp = true,
 		},
 	})
+	require("rose-pine").setup({
+		variant = "auto",
+		dark_variant = "main",
+		bold_vert_split = false,
+		dim_nc_background = false,
+		disable_background = true,
+		disable_float_background = false,
+		disable_italics = false,
 
-	color = color or "kanagawa-dragon"
-  vim.opt.cursorline = true
-  vim.opt.numberwidth = 4
-  vim.opt.termguicolors = true
+		highlight_groups = {
+			ColorColumn = { bg = "rose" },
+			CursorLine = { bg = "foam", blend = 10 },
+		},
+	})
+
+	color = color or "kanagawa"
+	vim.opt.cursorline = true
+	vim.opt.cursorcolumn = true
+	vim.opt.numberwidth = 4
+	vim.opt.termguicolors = true
 
 	vim.cmd.colorscheme(color)
+	if color == "two-firewatch" then
+		vim.api.nvim_set_hl(0, "Normal", { ctermfg = White, ctermbg = Black })
+	end
 end
 
 SetColors()
