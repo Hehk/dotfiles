@@ -84,20 +84,19 @@ require("lspconfig").tailwindcss.setup({
 	},
 })
 
-vim.diagnostic.config({
-	virtual_text = true,
-})
-require("lualine").setup({
-	options = {
-		theme = "rose-pine",
-
-		sections = {
-			lualine_a = { "mode" },
-			lualine_b = { "filename" },
-			lualine_c = {},
-			lualine_x = {},
-			lualine_y = { "diff", "diagnositcs" },
-			lualine_z = { "branch" },
+require("lspconfig").pylsp.setup({
+	settings = {
+		pylsp = {
+			plugins = {
+				pycodestyle = {
+					ignore = { "W391" },
+					maxLineLength = 100,
+				},
+			},
 		},
 	},
+})
+
+vim.diagnostic.config({
+	virtual_text = true,
 })

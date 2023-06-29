@@ -2,6 +2,13 @@ if vim.g.vscode then
 	return
 end
 
+local function minimalTheme()
+	local Color, colors, Group, groups, styles = require("colorbuddy").setup()
+
+	Color.new("background", "#f1f5f9")
+	Color.new("foreground", "#1e293b")
+end
+
 function SetColors(color)
 	require("kanagawa").setup({
 		commentStyle = { italic = true },
@@ -40,31 +47,6 @@ function SetColors(color)
 			}
 		end,
 	})
-	require("catppuccin").setup({
-		flavor = "mocha",
-		background = {
-			dark = "mocha",
-			light = "latte",
-		},
-		integrations = {
-			telescope = true,
-			cmp = true,
-		},
-	})
-	require("rose-pine").setup({
-		variant = "auto",
-		dark_variant = "main",
-		bold_vert_split = false,
-		dim_nc_background = false,
-		disable_background = true,
-		disable_float_background = false,
-		disable_italics = false,
-
-		highlight_groups = {
-			ColorColumn = { bg = "rose" },
-			CursorLine = { bg = "foam", blend = 10 },
-		},
-	})
 
 	color = color or "kanagawa"
 	vim.opt.cursorline = true
@@ -72,10 +54,11 @@ function SetColors(color)
 	vim.opt.numberwidth = 4
 	vim.opt.termguicolors = true
 
-	vim.cmd.colorscheme(color)
-	if color == "two-firewatch" then
-		vim.api.nvim_set_hl(0, "Normal", { ctermfg = White, ctermbg = Black })
-	end
+  if color == "minimal" then
+    minimalTheme()
+  else
+	  vim.cmd.colorscheme("kanagawa")
+  end
 end
 
 SetColors()
