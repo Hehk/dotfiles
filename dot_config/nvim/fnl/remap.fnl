@@ -16,4 +16,3 @@
 (noremap :<leader>j :<cmd>lprev<CR>zz)
 
 (noremap :Q :<nop>)
-
