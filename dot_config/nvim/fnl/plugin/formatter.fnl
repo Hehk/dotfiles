@@ -1,20 +1,14 @@
-(module plugin.formatter
-        {require {util formatter.util
-                  formatter formatter
-                  defaults formatter.defaults}})
+(module plugin.formatter {require {f formatter
+                                   defaults formatter.defaults
+                                   filetypes formatter.filetypes
+                                   nvim aniseed.nvim}})
 
-(local ocamlformat {:exe :ocamlformat
-                    :args [:--enable-outside-detected-project
-                           (util.escape_path (util.get_current_buffer_file_name))
-                           :--inplace]
-                    :stdin true})
-
-(local formatters {:fennel (fn formatters.fnlfmt []
+(local formatters {:fennel (fn []
                              {:exe :fnlfmt
                               :args [(nvim.buf_get_name 0)]
                               :stdin true})
-                   :ocaml ocamlformat
-                   :go defaults.gofmt
+                   :ocaml filetypes.ocaml.ocamlformat
+                   :go filetypes.go.gofmt
                    :typescript defaults.prettier
                    :typescriptreact defaults.prettier
                    :javascript defaults.prettier
@@ -28,7 +22,8 @@
                    :python defaults.black
                    :lua defaults.lua_format})
 
-(formatter.setup {:log_level vim.log.levels.WARN :filetype formatters})
+(f.setup {:logging true :log_level vim.log.levels.DEBUG :filetype formatters})
+
 (vim.keymap.set :n :<leader>f :<cmd>Format<cr> {:noremap true})
 (vim.keymap.set :n :<leader>F :<cmd>FormatWrite<cr> {:noremap true})
 
