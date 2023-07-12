@@ -1,15 +1,20 @@
 (module plugin.formatter {require {f formatter
                                    defaults formatter.defaults
                                    filetypes formatter.filetypes
+                                   util formatter.util
                                    nvim aniseed.nvim}})
 
 (local rescript-formatter {:exe :rescript :args [:format :$FILENAME] :stdin true})
+(local ocaml-formatter (fn []
+               {:exe :ocamlformat
+                :args [:--enable-outside-detected-project (util.escape_path (nvim.buf_get_name 0))]
+                :stdin true}))
 
 (local formatters {:fennel (fn []
                              {:exe :fnlfmt
                               :args [(nvim.buf_get_name 0)]
                               :stdin true})
-                   :ocaml filetypes.ocaml.ocamlformat
+                   :ocaml ocaml-formatter
                    :go filetypes.go.gofmt
                    :typescript defaults.prettier
                    :typescriptreact defaults.prettier
