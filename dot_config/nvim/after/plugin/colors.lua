@@ -3,13 +3,12 @@ if vim.g.vscode then
 end
 
 local function minimalTheme()
-	local Color, colors, Group, groups, styles = require("colorbuddy").setup()
-
-	Color.new("background", "#f1f5f9")
-	Color.new("foreground", "#1e293b")
 end
 
-function SetColors(color)
+function SetColors(color, background)
+	color = color or "zenwritten"
+  background = background or "light"
+
 	require("kanagawa").setup({
 		commentStyle = { italic = true },
 		theme = "dragon",
@@ -32,13 +31,13 @@ function SetColors(color)
 				NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
 				MasonNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
 
-				TelescopeTitle = { fg = theme.ui.special, bold = true },
-				TelescopePromptNormal = { bg = theme.ui.bg_p1 },
-				TelescopePromptBorder = { fg = theme.ui.bg_p1, bg = theme.ui.bg_p1 },
-				TelescopeResultsNormal = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m1 },
-				TelescopeResultsBorder = { fg = theme.ui.bg_m1, bg = theme.ui.bg_m1 },
-				TelescopePreviewNormal = { bg = theme.ui.bg_dim },
-				TelescopePreviewBorder = { bg = theme.ui.bg_dim, fg = theme.ui.bg_dim },
+				-- TelescopeTitle = { fg = theme.ui.special, bold = true },
+				-- TelescopePromptNormal = { bg = theme.ui.bg_p1 },
+				-- TelescopePromptBorder = { fg = theme.ui.bg_p1, bg = theme.ui.bg_p1 },
+				-- TelescopeResultsNormal = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m1 },
+				-- TelescopeResultsBorder = { fg = theme.ui.bg_m1, bg = theme.ui.bg_m1 },
+				-- TelescopePreviewNormal = { bg = theme.ui.bg_dim },
+				-- TelescopePreviewBorder = { bg = theme.ui.bg_dim, fg = theme.ui.bg_dim },
 
 				TreesitterContextLineNumber = { bg = theme.ui.bg_p1, fg = theme.ui.fg_dim },
 				TreesitterContext = { bg = theme.ui.bg_p1, fg = theme.ui.fg_dim },
@@ -48,16 +47,17 @@ function SetColors(color)
 		end,
 	})
 
-	color = color or "kanagawa"
+
 	vim.opt.cursorline = true
 	vim.opt.cursorcolumn = true
 	vim.opt.numberwidth = 4
 	vim.opt.termguicolors = true
+  vim.opt.background = background
 
   if color == "minimal" then
     minimalTheme()
   else
-	  vim.cmd.colorscheme("kanagawa")
+	  vim.cmd.colorscheme(color)
   end
 end
 

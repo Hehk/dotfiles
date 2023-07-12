@@ -40,15 +40,14 @@
 ; lsp.on_attach(function(client, bufnr)
 ; 	local opts = { buffer = bufnr, remap = false }
 
-; 	vim.keymap.set("n", "gd", function()
-; 		vim.lsp.buf.definition()
-; 	end, opts)
+; 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 ; 	vim.keymap.set("n", "K", function()
 ; 		vim.lsp.buf.hover()
 ; 	end, opts)
-; 	vim.keymap.set("n", "gs", function()
-; 		vim.lsp.buf.workspace_symbol()
-; 	end, opts)
+; 	vim.keymap.set("n", "<leader>d", vim.lsp.buf.type_definition, opts)
+; 	vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+
+; 	vim.keymap.set("n", "gs", vim.lsp.buf.workspace_symbol, opts)
 ; 	vim.keymap.set("n", "gw", function()
 ; 		vim.diagnostic.open_float()
 ; 	end, opts)
@@ -61,12 +60,8 @@
 ; 	vim.keymap.set("n", "ga", function()
 ; 		vim.lsp.buf.code_action()
 ; 	end, opts)
-; 	vim.keymap.set("n", "gu", "<cmd>TroubleToggle lsp_references<cr>", opts)
-; 	vim.keymap.set("n", "gc", function()
+; 	vim.keymap.set("n", "<leader>rn", function()
 ; 		vim.lsp.buf.rename()
-; 	end, opts)
-; 	vim.keymap.set("i", "<C-h>", function()
-; 		vim.lsp.buf.signature_help()
 ; 	end, opts)
 ; end)
 
@@ -84,7 +79,11 @@
 ; 	},
 ; })
 
+; require("lspconfig").pyright.setup({
+; 	settings = {
+; 	},
+; })
+
 ; vim.diagnostic.config({
 ; 	virtual_text = true,
 ; })
-

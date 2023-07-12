@@ -19,7 +19,7 @@
                    :html defaults.prettier
                    :markdown defaults.prettier
                    :rust defaults.rustfmt
-                   :python defaults.black
+                   :python filetypes.python.black
                    :lua defaults.lua_format})
 
 (f.setup {:logging true :log_level vim.log.levels.DEBUG :filetype formatters})

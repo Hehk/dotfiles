@@ -26,14 +26,12 @@ require("packer").startup(function(use)
 		run = ":TSUpdate",
 	} })
 	use({ "nvim-treesitter/nvim-treesitter-context", disable = vim.g.vscode })
-	use({ "nvim-treesitter/playground", disable = vim.g.vscode })
 
 	use({ "ThePrimeagen/harpoon", disable = vim.g.vscode })
 	use({ "mbbill/undotree", disable = vim.g.vscode })
-	use({ "tpope/vim-fugitive", disable = vim.g.vscode })
+	-- use({ "tpope/vim-fugitive", disable = vim.g.vscode })
 	use({ "github/copilot.vim", disable = vim.g.vscode })
 	use({ "rebelot/kanagawa.nvim", disable = vim.g.vscode })
-	use({ "catppuccin/nvim", disable = vim.g.vscode })
 	use({ "folke/trouble.nvim", disable = vim.g.vscode })
 
 	use({
@@ -58,6 +56,13 @@ require("packer").startup(function(use)
 	use("stevearc/oil.nvim")
 	use("Olical/aniseed")
 	use("Olical/conjure")
+
+  use({
+      "mcchrish/zenbones.nvim",
+      requires = "rktjmp/lush.nvim"
+  })
+
+  use { 'NeogitOrg/neogit', requires = 'nvim-lua/plenary.nvim' }
 end)
 
 require("aniseed.env").init()

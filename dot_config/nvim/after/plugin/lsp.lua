@@ -45,7 +45,6 @@ lsp.on_attach(function(client, bufnr)
 		vim.lsp.buf.hover()
 	end, opts)
 	vim.keymap.set("n", "<leader>d", vim.lsp.buf.type_definition, opts)
-	vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
 	vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 
 	vim.keymap.set("n", "gs", vim.lsp.buf.workspace_symbol, opts)
@@ -80,16 +79,8 @@ require("lspconfig").tailwindcss.setup({
 	},
 })
 
-require("lspconfig").pylsp.setup({
+require("lspconfig").pyright.setup({
 	settings = {
-		pylsp = {
-			plugins = {
-				pycodestyle = {
-					ignore = { "W391" },
-					maxLineLength = 100,
-				},
-			},
-		},
 	},
 })
 
