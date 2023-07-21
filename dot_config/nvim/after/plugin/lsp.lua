@@ -67,7 +67,9 @@ end)
 
 lsp.setup()
 
-require("lspconfig").tailwindcss.setup({
+local config = require("lspconfig")
+
+config.tailwindcss.setup({
 	settings = {
 		tailwindCSS = {
 			experimental = {
@@ -79,10 +81,13 @@ require("lspconfig").tailwindcss.setup({
 	},
 })
 
-require("lspconfig").pyright.setup({
-	settings = {
-	},
+config.pyright.setup({
+	settings = {},
 })
+
+config.sourcekit.setup({})
+
+config.rescriptls.setup({})
 
 vim.diagnostic.config({
 	virtual_text = true,

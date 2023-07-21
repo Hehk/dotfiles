@@ -3,6 +3,8 @@
                                    filetypes formatter.filetypes
                                    nvim aniseed.nvim}})
 
+(local rescript-formatter {:exe :rescript :args [:format :$FILENAME] :stdin true})
+
 (local formatters {:fennel (fn []
                              {:exe :fnlfmt
                               :args [(nvim.buf_get_name 0)]
@@ -20,7 +22,8 @@
                    :markdown defaults.prettier
                    :rust defaults.rustfmt
                    :python filetypes.python.black
-                   :lua defaults.lua_format})
+                   :rescript rescript-formatter
+                   :lua filetypes.lua.stylua})
 
 (f.setup {:logging true :log_level vim.log.levels.DEBUG :filetype formatters})
 

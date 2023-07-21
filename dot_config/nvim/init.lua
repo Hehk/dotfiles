@@ -6,7 +6,7 @@ require("packer").startup(function(use)
 	use({ "svermeulen/vim-cutlass" })
 	use({ "tpope/vim-surround" })
 	use({ "tpope/vim-commentary" })
-  use({ "tpope/vim-repeat" })
+	use({ "tpope/vim-repeat" })
 	use({
 		"phaazon/hop.nvim",
 		branch = "v2",
@@ -57,12 +57,25 @@ require("packer").startup(function(use)
 	use("Olical/aniseed")
 	use("Olical/conjure")
 
-  use({
-      "mcchrish/zenbones.nvim",
-      requires = "rktjmp/lush.nvim"
-  })
+	use({
+		"mcchrish/zenbones.nvim",
+		requires = "rktjmp/lush.nvim",
+	})
+  use({ 'rose-pine/neovim', as = 'rose-pine' })
 
-  use { 'NeogitOrg/neogit', requires = 'nvim-lua/plenary.nvim' }
+	use({ "NeogitOrg/neogit", requires = "nvim-lua/plenary.nvim" })
+	use({
+		"xbase-lab/xbase",
+		run = "make install",
+		requires = {
+			"neovim/nvim-lspconfig",
+		},
+		config = function()
+			require("xbase").setup({})
+		end,
+	})
+
+	use({ "sourcegraph/sg.nvim", run = "cargo build --workspace", requires = { "nvim-lua/plenary.nvim" } })
 end)
 
 require("aniseed.env").init()
