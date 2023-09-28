@@ -1,7 +1,4 @@
 require("lualine").setup({
-	options = {
-		theme = "kanagawa",
-	},
 	component_separators = { left = "", right = "" },
 	section_separators = { left = "", right = "" },
 	sections = {

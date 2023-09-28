@@ -9,6 +9,7 @@
                {:exe :ocamlformat
                 :args [:--enable-outside-detected-project (util.escape_path (nvim.buf_get_name 0))]
                 :stdin true}))
+(local swift-format {:exe :swiftformat :args [:stdin :$FILENAME] :stdin true})
 
 (local formatters {:fennel (fn []
                              {:exe :fnlfmt
@@ -28,7 +29,8 @@
                    :rust defaults.rustfmt
                    :python filetypes.python.black
                    :rescript rescript-formatter
-                   :lua filetypes.lua.stylua})
+                   :lua filetypes.lua.stylua
+                   :swift swift-format})
 
 (f.setup {:logging true :log_level vim.log.levels.DEBUG :filetype formatters})
 

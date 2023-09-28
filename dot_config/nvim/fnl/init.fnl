@@ -15,5 +15,5 @@
 
 (require :plugin/formatter)
 (require :plugin/harpoon)
-(require :plugin/neogit)
+(require :plugin/magma)
 

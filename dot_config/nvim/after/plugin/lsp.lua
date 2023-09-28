@@ -86,7 +86,6 @@ config.pyright.setup({
 })
 
 config.sourcekit.setup({})
-
 config.rescriptls.setup({})
 
 vim.diagnostic.config({

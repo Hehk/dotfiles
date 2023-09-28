@@ -7,9 +7,11 @@ require("packer").startup(function(use)
 	use({ "tpope/vim-surround" })
 	use({ "tpope/vim-commentary" })
 	use({ "tpope/vim-repeat" })
+	use({ "tpope/vim-fugitive" })
 	use({
 		"phaazon/hop.nvim",
 		branch = "v2",
+    disable = vim.g.vscode,
 	})
 	use({
 		"folke/which-key.nvim",
@@ -37,45 +39,40 @@ require("packer").startup(function(use)
 	use({
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v2.x",
+		disable = vim.g.vscode,
 		requires = {
-			{ "neovim/nvim-lspconfig" },
+			{ "neovim/nvim-lspconfig", disable = vim.g.vscode },
 			{
 				"williamboman/mason.nvim",
+				disable = vim.g.vscode,
 				run = function()
 					pcall(vim.cmd, "MasonUpdate")
 				end,
 			},
-			{ "williamboman/mason-lspconfig.nvim" },
-			{ "hrsh7th/nvim-cmp" },
-			{ "hrsh7th/cmp-nvim-lsp" },
-			{ "L3MON4D3/LuaSnip" },
+			{ "williamboman/mason-lspconfig.nvim", disable = vim.g.vscode },
+			{ "hrsh7th/nvim-cmp", disable = vim.g.vscode },
+			{ "hrsh7th/cmp-nvim-lsp", disable = vim.g.vscode },
+			{ "L3MON4D3/LuaSnip", disable = vim.g.vscode },
 		},
 	})
 	use("nvim-lualine/lualine.nvim")
-	use("mhartington/formatter.nvim")
-	use("stevearc/oil.nvim")
+	use({ "mhartington/formatter.nvim", disable = vim.g.vscode })
+	use({ "stevearc/oil.nvim", disable = vim.g.vscode })
 	use("Olical/aniseed")
-	use("Olical/conjure")
-
-	use({
-		"mcchrish/zenbones.nvim",
-		requires = "rktjmp/lush.nvim",
-	})
-  use({ 'rose-pine/neovim', as = 'rose-pine' })
-
-	use({ "NeogitOrg/neogit", requires = "nvim-lua/plenary.nvim" })
 	use({
 		"xbase-lab/xbase",
 		run = "make install",
-		requires = {
-			"neovim/nvim-lspconfig",
-		},
 		config = function()
-			require("xbase").setup({})
+			require("xbase").setup({}) -- see default configuration bellow
 		end,
+		disable = vim.g.vscode,
 	})
 
-	use({ "sourcegraph/sg.nvim", run = "cargo build --workspace", requires = { "nvim-lua/plenary.nvim" } })
+	use({ "rakr/vim-two-firewatch", disable = vim.g.vscode })
+	use({ "Vigemus/iron.nvim", disable = vim.g.vscode })
+	use({ "folke/noice.nvim", disable = vim.g.vscode, requires = {
+		{ "MunifTanjim/nui.nvim" },
+	} })
 end)
 
 require("aniseed.env").init()
