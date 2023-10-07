@@ -73,6 +73,7 @@ require("packer").startup(function(use)
 	use({ "folke/noice.nvim", disable = vim.g.vscode, requires = {
 		{ "MunifTanjim/nui.nvim" },
 	} })
+  use("fatih/vim-go")
 end)
 
 require("aniseed.env").init()
