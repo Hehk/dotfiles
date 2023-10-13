@@ -1,9 +1,5 @@
-(module remap {autoload {nvim aniseed.nvim
-                         nu aniseed.nvim.util
-                         core aniseed.core}})
-
-(defn- noremap [from to]
-  (nvim.set_keymap :n from to {:noremap true}))
+(fn noremap [from to]
+  (vim.api.nvim_set_keymap :n from to {:noremap true}))
 
 (set vim.g.mapleader " ")
 (set vim.g.maplocalleader ",")

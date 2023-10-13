@@ -1,19 +1,17 @@
-(module plugin.formatter {require {f formatter
-                                   defaults formatter.defaults
-                                   filetypes formatter.filetypes
-                                   util formatter.util
-                                   nvim aniseed.nvim}})
+(local f (require :formatter))
+(local filetypes (require :formatter.filetypes))
+(local defaults (require :formatter.defaults))
 
 (local rescript-formatter {:exe :rescript :args [:format :$FILENAME] :stdin true})
 (local ocaml-formatter (fn []
                {:exe :ocamlformat
-                :args [:--enable-outside-detected-project (util.escape_path (nvim.buf_get_name 0))]
+                :args [:--enable-outside-detected-project (util.escape_path (nvim.buf_get_name))]
                 :stdin true}))
 (local swift-format {:exe :swiftformat :args [:stdin :$FILENAME] :stdin true})
 
 (local formatters {:fennel (fn []
                              {:exe :fnlfmt
-                              :args [(nvim.buf_get_name 0)]
+                              :args [(vim.api.nvim_buf_get_name)]
                               :stdin true})
                    :ocaml ocaml-formatter
                    :go filetypes.go.gofmt
@@ -36,4 +34,3 @@
 
 (vim.keymap.set :n :<leader>f :<cmd>Format<cr> {:noremap true})
 (vim.keymap.set :n :<leader>F :<cmd>FormatWrite<cr> {:noremap true})
-

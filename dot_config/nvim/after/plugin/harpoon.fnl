@@ -1,8 +1,7 @@
-(module plugin.telescope {require {mark harpoon.mark
-                                   nvim aniseed.nvim
-                                   ui harpoon.ui}})
+(local mark (require :harpoon.mark))
+(local ui (require :harpoon.ui))
 
-(defn noremap [key command]
+(fn noremap [key command]
   (vim.keymap.set :n key command {:noremap true}))
 
 (noremap :<leader>a mark.add_file)

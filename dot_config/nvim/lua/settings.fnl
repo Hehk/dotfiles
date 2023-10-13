@@ -1,7 +1,3 @@
-(module settings {require {nvim aniseed.nvim
-                           nu aniseed.nvim.util
-                           core aniseed.core}})
-
 ;; All the general settings that it does not make sense to
 ;; put in a separate module
 
@@ -30,4 +26,3 @@
 
 (set vim.opt.updatetime 50)
 (set vim.opt.clipboard :unnamed)
-

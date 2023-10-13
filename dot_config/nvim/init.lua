@@ -11,7 +11,7 @@ require("packer").startup(function(use)
 	use({
 		"phaazon/hop.nvim",
 		branch = "v2",
-    disable = vim.g.vscode,
+		disable = vim.g.vscode,
 	})
 	use({
 		"folke/which-key.nvim",
@@ -58,7 +58,7 @@ require("packer").startup(function(use)
 	use("nvim-lualine/lualine.nvim")
 	use({ "mhartington/formatter.nvim", disable = vim.g.vscode })
 	use({ "stevearc/oil.nvim", disable = vim.g.vscode })
-	use("Olical/aniseed")
+	use("Olical/nfnl")
 	use({
 		"xbase-lab/xbase",
 		run = "make install",
@@ -73,8 +73,8 @@ require("packer").startup(function(use)
 	use({ "folke/noice.nvim", disable = vim.g.vscode, requires = {
 		{ "MunifTanjim/nui.nvim" },
 	} })
-  use("fatih/vim-go")
+	use("fatih/vim-go")
 end)
 
-require("aniseed.env").init()
 require("remap")
+require("settings")
