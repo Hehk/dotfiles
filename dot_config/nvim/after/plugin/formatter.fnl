@@ -11,7 +11,7 @@
 
 (local formatters {:fennel (fn []
                              {:exe :fnlfmt
-                              :args [(vim.api.nvim_buf_get_name)]
+                              :args [(vim.api.nvim_buf_get_name 0)]
                               :stdin true})
                    :ocaml ocaml-formatter
                    :go filetypes.go.gofmt

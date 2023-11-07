@@ -8,20 +8,6 @@ require("packer").startup(function(use)
 	use({ "tpope/vim-commentary" })
 	use({ "tpope/vim-repeat" })
 	use({ "tpope/vim-fugitive" })
-	use({
-		"phaazon/hop.nvim",
-		branch = "v2",
-		disable = vim.g.vscode,
-	})
-	use({
-		"folke/which-key.nvim",
-		disable = vim.g.vscode,
-		config = function()
-			vim.o.timeout = true
-			vim.o.timeoutlen = 300
-			require("which-key").setup()
-		end,
-	})
 
 	use({ "nvim-telescope/telescope.nvim", disable = vim.g.vscode })
 	use({ "nvim-treesitter/nvim-treesitter", disable = vim.g.vscode, {
@@ -31,9 +17,7 @@ require("packer").startup(function(use)
 
 	use({ "ThePrimeagen/harpoon", disable = vim.g.vscode })
 	use({ "mbbill/undotree", disable = vim.g.vscode })
-	-- use({ "tpope/vim-fugitive", disable = vim.g.vscode })
 	use({ "github/copilot.vim", disable = vim.g.vscode })
-	use({ "rebelot/kanagawa.nvim", disable = vim.g.vscode })
 	use({ "folke/trouble.nvim", disable = vim.g.vscode })
 
 	use({
@@ -63,16 +47,12 @@ require("packer").startup(function(use)
 		"xbase-lab/xbase",
 		run = "make install",
 		config = function()
-			require("xbase").setup({}) -- see default configuration bellow
+			require("xbase").setup({})
 		end,
 		disable = vim.g.vscode,
 	})
 
 	use({ "rakr/vim-two-firewatch", disable = vim.g.vscode })
-	use({ "Vigemus/iron.nvim", disable = vim.g.vscode })
-	use({ "folke/noice.nvim", disable = vim.g.vscode, requires = {
-		{ "MunifTanjim/nui.nvim" },
-	} })
 	use("fatih/vim-go")
 end)
 

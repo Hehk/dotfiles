@@ -11,7 +11,7 @@ ocaml_formatter = _1_
 local swift_format = {exe = "swiftformat", args = {"stdin", "$FILENAME"}, stdin = true}
 local formatters
 local function _2_()
-  return {exe = "fnlfmt", args = {vim.api.nvim_buf_get_name()}, stdin = true}
+  return {exe = "fnlfmt", args = {vim.api.nvim_buf_get_name(0)}, stdin = true}
 end
 formatters = {fennel = _2_, ocaml = ocaml_formatter, go = filetypes.go.gofmt, typescript = defaults.prettier, typescriptreact = defaults.prettier, javascript = defaults.prettier, javascriptreact = defaults.prettier, json = defaults.prettier, css = defaults.prettier, scss = defaults.prettier, html = defaults.prettier, markdown = defaults.prettier, rust = defaults.rustfmt, python = filetypes.python.black, rescript = rescript_formatter, lua = filetypes.lua.stylua, swift = swift_format}
 f.setup({logging = true, log_level = vim.log.levels.DEBUG, filetype = formatters})

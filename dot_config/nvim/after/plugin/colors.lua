@@ -1,27 +1,19 @@
-if vim.g.vscode then
-	return
-end
-
-local function twoFirewatchModifications()
-  vim.api.nvim_set_hl(0, "SignColumn", { bg = "background" })
-end
-
-function SetColors(color, background)
-	color = color or "two-firewatch"
-  background = background or "dark"
-
-	vim.opt.cursorline = true
-	vim.opt.cursorcolumn = true
-	vim.opt.numberwidth = 2
-	vim.opt.termguicolors = true
-  vim.opt.background = background
+-- [nfnl] Compiled from after/plugin/colors.fnl by https://github.com/Olical/nfnl, do not edit.
+local function SetColors(color, background)
+  local color0 = (color or "two-firewatch")
+  local background0 = (background or "dark")
+  vim.opt.cursorline = true
+  vim.opt.cursorcolumn = true
+  vim.opt.numberwidth = 2
+  vim.opt.termguicolors = true
+  vim.opt.background = background0
   vim.wo.signcolumn = "no"
   vim.wo.foldcolumn = "0"
-
-	vim.cmd.colorscheme(color)
-  if color == "two-firewatch" then
-    twoFirewatchModifications()
+  vim.cmd.colorscheme(color0)
+  if (color0 == "two-firewatch") then
+    return vim.api.nvim_set_hl(0, "SignColumn", {bg = "background"})
+  else
+    return nil
   end
 end
-
-SetColors()
+return SetColors()
