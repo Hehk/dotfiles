@@ -1,11 +1,12 @@
 (local f (require :formatter))
+(local util (require :formatter.util))
 (local filetypes (require :formatter.filetypes))
 (local defaults (require :formatter.defaults))
 
 (local rescript-formatter {:exe :rescript :args [:format :$FILENAME] :stdin true})
 (local ocaml-formatter (fn []
                {:exe :ocamlformat
-                :args [:--enable-outside-detected-project (util.escape_path (nvim.buf_get_name))]
+                :args [:--enable-outside-detected-project (util.escape_path (util.get_current_buffer_file_path))]
                 :stdin true}))
 (local swift-format {:exe :swiftformat :args [:stdin :$FILENAME] :stdin true})
 

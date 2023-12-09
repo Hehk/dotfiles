@@ -87,6 +87,7 @@ config.pyright.setup({
 
 config.sourcekit.setup({})
 config.rescriptls.setup({})
+config.ocamllsp.setup({})
 
 vim.diagnostic.config({
 	virtual_text = true,
