@@ -1,14 +1,8 @@
 f1 : open -a /Applications/Arc.app/
 f2 : open -a /Applications/iTerm.app/
-f3 : open -a /Applications/Logseq.app/
+f3 : open -a /Applications/Obsidian.app/
 f4 : open -a /Applications/Visual\ Studio\ Code.app/
 f5 : open -a /Applications/Xcode.app/
-# f5 : open -a /Applications/Google\ Chrome.app/
 
 f6 : open -a /Applications/Figma.app/
 f7 : open -a /Applications/Notion.app/
-f11 : open -a /Applications/Toggl Track.app/
-f12 : open -a /Applications/Spotify.app/
-
-
-
