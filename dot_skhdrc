@@ -4,5 +4,5 @@ f3 : open -a /Applications/Obsidian.app/
 f4 : open -a /Applications/Visual\ Studio\ Code.app/
 f5 : open -a /Applications/Xcode.app/
 
-f6 : open -a /Applications/Figma.app/
-f7 : open -a /Applications/Notion.app/
+f9 : open -a /Applications/Spotify.app/
+f10 : open -a /Applications/Toggl\ Track.app/
