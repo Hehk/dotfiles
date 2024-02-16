@@ -1,6 +1,6 @@
 (fn SetColors [color background]
-  (let [color (or color :two-firewatch)
-        background (or background :dark)]
+  (let [color (or color :zenbones)
+        background (or background :light)]
     (set vim.opt.cursorline true)
     (set vim.opt.cursorcolumn true)
     (set vim.opt.numberwidth 2)

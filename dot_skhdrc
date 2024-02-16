@@ -1,8 +1,15 @@
 f1 : open -a /Applications/Arc.app/
-f2 : open -a /Applications/iTerm.app/
-f3 : open -a /Applications/Obsidian.app/
-f4 : open -a /Applications/Visual\ Studio\ Code.app/
-f5 : open -a /Applications/Xcode.app/
+shift - f1 : open -a /Applications/Google Chrome.app/
 
+f2 : open -a /Applications/iTerm.app/
+shift - f2 : open -a /Applications/Visual\ Studio\ Code.app/ 
+cmd - f2 : open -a /Applications/Xcode.app/
+
+f3 : open -a /Applications/Obsidian.app/
+
+f4 : open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
+
+f6 : open -a /Applications/Linear.app/
+f7 : open -a /Applications/Figma.app/
 f9 : open -a /Applications/Spotify.app/
 f10 : open -a /Applications/Toggl\ Track.app/

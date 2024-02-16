@@ -26,3 +26,4 @@
 
 (set vim.opt.updatetime 50)
 (set vim.opt.clipboard :unnamed)
+

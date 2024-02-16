@@ -17,7 +17,10 @@ require("packer").startup(function(use)
 
 	use({ "ThePrimeagen/harpoon", disable = vim.g.vscode })
 	use({ "mbbill/undotree", disable = vim.g.vscode })
+
 	use({ "github/copilot.vim", disable = vim.g.vscode })
+	use({ "sourcegraph/sg.nvim", run = "nvim -l build/init.lua" })
+
 	use({ "folke/trouble.nvim", disable = vim.g.vscode })
 
 	use({
@@ -43,17 +46,14 @@ require("packer").startup(function(use)
 	use({ "mhartington/formatter.nvim", disable = vim.g.vscode })
 	use({ "stevearc/oil.nvim", disable = vim.g.vscode })
 	use("Olical/nfnl")
-	use({
-		"xbase-lab/xbase",
-		run = "make install",
-		config = function()
-			require("xbase").setup({})
-		end,
-		disable = vim.g.vscode,
-	})
-
-	use({ "rakr/vim-two-firewatch", disable = vim.g.vscode })
 	use("fatih/vim-go")
+	use({
+		"mcchrish/zenbones.nvim",
+		-- Optionally install Lush. Allows for more configuration or extending the colorscheme
+		-- If you don't want to install lush, make sure to set g:zenbones_compat = 1
+		-- In Vim, compat mode is turned on as Lush only works in Neovim.
+		requires = "rktjmp/lush.nvim",
+	})
 end)
 
 require("remap")

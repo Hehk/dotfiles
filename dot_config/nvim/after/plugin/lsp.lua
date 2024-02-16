@@ -80,6 +80,7 @@ config.tailwindcss.setup({
 		},
 	},
 })
+config.biome.setup({})
 
 config.pyright.setup({
 	settings = {},

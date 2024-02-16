@@ -1,19 +1,20 @@
-if vim.g.vscode then
-	return
-end
-
 local telescope = require("telescope")
-telescope.setup({
-  pickers = {
-    theme = "dropdown"
-  }
-})
+telescope.setup({})
+
 local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
-vim.keymap.set("n", "<C-p>", builtin.git_files, {})
-vim.keymap.set("n", "<leader>ps", function()
-	builtin.grep_string({ search = vim.fn.input("Grep > ") })
-end)
-vim.keymap.set("n", "<leader>pb", builtin.buffers, {})
-vim.keymap.set("n", "<leader>pg", builtin.live_grep, {})
-vim.keymap.set("n", "<C-f>", builtin.live_grep, {})
+local themes = require("telescope.themes")
+
+local function find_files()
+  local dropdown = themes.get_dropdown({ shorten_path = true, previewer = false })
+	return builtin.find_files(dropdown)
+end
+vim.keymap.set("n", "<leader>pf", find_files, {})
+
+local function git_files()
+  local opts = themes.get_dropdown({ shorten_path = true, previewer = false })
+  opts.show_untracked = true
+	return builtin.git_files(opts)
+end
+vim.keymap.set("n", "<C-p>", git_files, {})
+
+return vim.keymap.set("n", "<C-f>", builtin.live_grep, {})

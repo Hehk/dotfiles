@@ -16,15 +16,15 @@
                               :stdin true})
                    :ocaml ocaml-formatter
                    :go filetypes.go.gofmt
-                   :typescript defaults.prettier
-                   :typescriptreact defaults.prettier
-                   :javascript defaults.prettier
-                   :javascriptreact defaults.prettier
-                   :json defaults.prettier
-                   :css defaults.prettier
-                   :scss defaults.prettier
-                   :html defaults.prettier
-                   :markdown defaults.prettier
+                   :typescript defaults.biome
+                   :typescriptreact defaults.biome
+                   :javascript defaults.biome
+                   :javascriptreact defaults.biome
+                   :json defaults.biome
+                   :css defaults.biome
+                   :scss defaults.biome
+                   :html defaults.biome
+                   :markdown defaults.biome
                    :rust defaults.rustfmt
                    :python filetypes.python.black
                    :rescript rescript-formatter

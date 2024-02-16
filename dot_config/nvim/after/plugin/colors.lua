@@ -1,7 +1,7 @@
 -- [nfnl] Compiled from after/plugin/colors.fnl by https://github.com/Olical/nfnl, do not edit.
 local function SetColors(color, background)
-  local color0 = (color or "two-firewatch")
-  local background0 = (background or "dark")
+  local color0 = (color or "zenbones")
+  local background0 = (background or "light")
   vim.opt.cursorline = true
   vim.opt.cursorcolumn = true
   vim.opt.numberwidth = 2
