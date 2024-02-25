@@ -54,6 +54,7 @@ require("packer").startup(function(use)
 		-- In Vim, compat mode is turned on as Lush only works in Neovim.
 		requires = "rktjmp/lush.nvim",
 	})
+  use("hiphish/rainbow-delimiters.nvim")
 end)
 
 require("remap")

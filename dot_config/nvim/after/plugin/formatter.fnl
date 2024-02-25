@@ -15,6 +15,7 @@
                               :args [(vim.api.nvim_buf_get_name 0)]
                               :stdin true})
                    :ocaml ocaml-formatter
+
                    :go filetypes.go.gofmt
                    :typescript defaults.biome
                    :typescriptreact defaults.biome
