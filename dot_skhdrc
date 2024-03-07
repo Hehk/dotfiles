@@ -1,7 +1,7 @@
 f1 : open -a Arc
 shift - f1 : Google Chrome
 
-f2 : open -a Warp
+f2 : open -a Alacritty
 shift - f2 : open -a Visual\ Studio\ Code
 cmd - f2 : open -a Xcode
 
