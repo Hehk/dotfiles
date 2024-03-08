@@ -2,15 +2,22 @@ local util = require("formatter.util")
 local filetypes = require("formatter.filetypes")
 local defaults = require("formatter.defaults")
 
+local function toFn(x)
+	return function()
+		return x
+	end
+end
+local function ormolu()
+	return
+end
+
 local formatters = {
 	fennel = { exe = "fnlfmt", args = { vim.api.nvim_buf_get_name(0) }, stdin = true },
-	ocaml = function()
-		return {
-			exe = "ocamlformat",
-			args = { "--enable-outside-detected-project", util.escape_path(util.get_current_buffer_file_path()) },
-			stdin = true,
-		}
-	end,
+	ocaml = toFn({
+		exe = "ocamlformat",
+		args = { "--enable-outside-detected-project", util.escape_path(util.get_current_buffer_file_path()) },
+		stdin = true,
+	}),
 	go = filetypes.go.gofmt,
 	typescript = defaults.biome,
 	typescriptreact = defaults.biome,
@@ -23,9 +30,17 @@ local formatters = {
 	markdown = defaults.biome,
 	rust = defaults.rustfmt,
 	python = filetypes.python.black,
-	rescript = { exe = "rescript", args = { "format", "$FILENAME" }, stdin = true },
+	rescript = toFn({ exe = "rescript", args = { "format", "$FILENAME" }, stdin = true }),
 	lua = filetypes.lua.stylua,
-	swift = { exe = "swiftformat", args = { "stdin", "$FILENAME" }, stdin = true },
+	swift = toFn({ exe = "swiftformat", args = { "stdin", "$FILENAME" }, stdin = true }),
+	haskell = toFn({
+		exe = "ormolu",
+		args = {
+			"--stdin-input-file",
+			vim.api.nvim_buf_get_name(0),
+		},
+		stdin = true,
+	}),
 }
 
 require("formatter").setup({ logging = true, log_level = vim.log.levels.DEBUG, filetype = formatters })
