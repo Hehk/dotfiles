@@ -1,0 +1,10 @@
+#!/bin/bash
+
+SRC_DIR="$1"
+REMOTE="$2"
+REMOTE_DIR="$3"
+
+fswatch -o "$SRC_DIR" | while read f; do
+    rsync -avz --exclude '.git/' --delete "$SRC_DIR" "${REMOTE}:${REMOTE_DIR}"
+    echo "Code synced at $(date)"
+done
