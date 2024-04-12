@@ -53,6 +53,7 @@ require("packer").startup(function(use)
 	use("rebelot/kanagawa.nvim")
 	use("neanias/everforest-nvim")
 	use("rakr/vim-two-firewatch")
+	use("kepano/flexoki")
 
 	use("Olical/conjure")
 end)

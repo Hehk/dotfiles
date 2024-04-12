@@ -11,6 +11,7 @@ require("kanagawa").setup({
 })
 
 require("everforest").setup()
+require("flexoki").setup()
 
 local function SetColors(color, background)
 	color = (color or "two-firewatch")
