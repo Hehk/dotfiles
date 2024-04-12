@@ -10,11 +10,8 @@ require("kanagawa").setup({
 	},
 })
 
-require("everforest").setup()
-require("flexoki").setup()
-
 local function SetColors(color, background)
-	color = (color or "two-firewatch")
+	color = (color or "kanagawa-dragon")
 	background = (background or "dark")
 
 	vim.opt.cursorline = true
