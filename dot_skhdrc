@@ -7,10 +7,14 @@ cmd - f2 : open -a Xcode
 
 f3 : open -a Obsidian
 
-f4 : open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
+f5 : open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
 
-f6 : open -a Linear
-f7 : open -a Figma
+f6 : open -a Slack
+shift - f6 : open -a Superhuman
+
+f7 : open -a Linear
+shift - f7 : open -a Figma
+
 f8 : open -a Preview
-f9 : open -a /Applications/Spotify.app/
-f10 : open -a Toggl\ Track
+f11 : open -a /Applications/Spotify.app/
+f12 : open -a Toggl\ Track

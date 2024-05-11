@@ -7,10 +7,6 @@ local function toFn(x)
 		return x
 	end
 end
-local function ormolu()
-	return
-end
-
 local formatters = {
 	fennel = { exe = "fnlfmt", args = { vim.api.nvim_buf_get_name(0) }, stdin = true },
 	ocaml = toFn({
@@ -41,6 +37,7 @@ local formatters = {
 		},
 		stdin = true,
 	}),
+  c = filetypes.c.clangformat,
 }
 
 require("formatter").setup({ logging = true, log_level = vim.log.levels.DEBUG, filetype = formatters })

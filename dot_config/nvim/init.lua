@@ -51,9 +51,8 @@ require("packer").startup(function(use)
 	use({ "stevearc/oil.nvim", disable = vim.g.vscode })
 	use("fatih/vim-go")
 	use("rebelot/kanagawa.nvim")
-	use("neanias/everforest-nvim")
-	use("rakr/vim-two-firewatch")
   use({ 'kepano/flexoki-neovim', as = 'flexoki' })
+
 
 	use("Olical/conjure")
 end)

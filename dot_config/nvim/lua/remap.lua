@@ -1,4 +1,3 @@
--- [nfnl] Compiled from lua/remap.fnl by https://github.com/Olical/nfnl, do not edit.
 local function noremap(from, to)
   return vim.api.nvim_set_keymap("n", from, to, {noremap = true})
 end
@@ -10,4 +9,4 @@ noremap("n", "nzzzv")
 noremap("N", "Nzzzv")
 noremap("<leader>k", "<cmd>lnext<CR>zz")
 noremap("<leader>j", "<cmd>lprev<CR>zz")
-return noremap("Q", "<nop>")
+noremap("Q", "<nop>")

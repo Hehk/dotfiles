@@ -1,4 +1,3 @@
--- [nfnl] Compiled from lua/settings.fnl by https://github.com/Olical/nfnl, do not edit.
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 vim.opt.nu = true
@@ -17,4 +16,3 @@ vim.opt.incsearch = true
 vim.opt.scrolloff = 12
 vim.opt.updatetime = 50
 vim.opt.clipboard = "unnamed"
-return nil
