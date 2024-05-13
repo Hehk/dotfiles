@@ -52,9 +52,8 @@ require("packer").startup(function(use)
 	use("fatih/vim-go")
 	use("rebelot/kanagawa.nvim")
   use({ 'kepano/flexoki-neovim', as = 'flexoki' })
-
-
-	use("Olical/conjure")
+	use("mrcjkb/haskell-tools.nvim")
+	use("rescript-lang/vim-rescript")
 end)
 
 require("remap")
