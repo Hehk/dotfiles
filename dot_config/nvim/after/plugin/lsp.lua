@@ -5,7 +5,6 @@ end
 local lsp = require("lsp-zero")
 lsp.preset("recommended")
 lsp.ensure_installed({
-	"tsserver",
 	"rust_analyzer",
 })
 
@@ -37,31 +36,39 @@ lsp.set_preferences({
 	},
 })
 
-lsp.on_attach(function(client, bufnr)
+lsp.on_attach(function(_, bufnr)
 	local opts = { buffer = bufnr, remap = false }
+	local function map(shortcut, f)
+		vim.keymap.set("n", shortcut, f, opts)
+	end
 
-	vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-	vim.keymap.set("n", "K", function()
-		vim.lsp.buf.hover()
-	end, opts)
-	vim.keymap.set("n", "<leader>d", vim.lsp.buf.type_definition, opts)
-	vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+	map("gd", vim.lsp.buf.definition)
+	map("gD", vim.lsp.buf.type_definition)
+	map("g<C-D>", vim.lsp.buf.implementation)
+	map("gA", vim.lsp.buf.references)
+	map("g.", vim.lsp.buf.code_action)
+	map("gs", vim.lsp.buf.workspace_symbol)
+	map("cd", vim.lsp.buf.rename)
+	map("K", vim.lsp.buf.hover)
+	map("gh", vim.lsp.buf.signature_help)
 
-	vim.keymap.set("n", "gs", vim.lsp.buf.workspace_symbol, opts)
+	map("[d", vim.diagnostic.goto_prev)
+	map("]d", vim.diagnostic.goto_next)
+	map("[e", function()
+		vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+	end)
+	map("]e", function()
+		vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+	end)
+	map("[w", function()
+		vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARNING })
+	end)
+	map("]w", function()
+		vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARNING })
+	end)
+
 	vim.keymap.set("n", "gw", function()
 		vim.diagnostic.open_float()
-	end, opts)
-	vim.keymap.set("n", "[d", function()
-		vim.diagnostic.goto_next()
-	end, opts)
-	vim.keymap.set("n", "]d", function()
-		vim.diagnostic.goto_prev()
-	end, opts)
-	vim.keymap.set("n", "ga", function()
-		vim.lsp.buf.code_action()
-	end, opts)
-	vim.keymap.set("n", "<leader>rn", function()
-		vim.lsp.buf.rename()
 	end, opts)
 end)
 
@@ -80,16 +87,19 @@ config.tailwindcss.setup({
 		},
 	},
 })
-config.biome.setup({})
-
+config.biome.setup({
+	cmd = { "npx", "biome", "lsp-proxy" },
+})
 config.pyright.setup({
 	settings = {},
 })
-
 config.sourcekit.setup({})
 config.rescriptls.setup({})
 config.ocamllsp.setup({})
-
 vim.diagnostic.config({
 	virtual_text = true,
 })
+
+-- TypeScript
+local tools = require("typescript-tools")
+tools.setup({})

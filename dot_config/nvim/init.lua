@@ -1,59 +1,64 @@
 vim.cmd([[packadd packer.nvim]])
 
 require("packer").startup(function(use)
-	use({ "wbthomason/packer.nvim" })
-	use({ "nvim-lua/plenary.nvim" })
-	use({ "svermeulen/vim-cutlass" })
-	use({ "tpope/vim-surround" })
-	use({ "tpope/vim-commentary" })
-	use({ "tpope/vim-repeat" })
-	use({ "tpope/vim-fugitive" })
+	use("wbthomason/packer.nvim")
+	use("nvim-lua/plenary.nvim")
+	use("tpope/vim-surround")
+	use("tpope/vim-commentary")
+	use("tpope/vim-repeat")
+	use("tpope/vim-fugitive")
 	use({
 		"phaazon/hop.nvim",
 		branch = "v2",
 	})
 
-	use({ "nvim-telescope/telescope.nvim", disable = vim.g.vscode })
-	use({ "nvim-treesitter/nvim-treesitter", disable = vim.g.vscode, {
+	use("nvim-telescope/telescope.nvim")
+	use({ "nvim-treesitter/nvim-treesitter", {
 		run = ":TSUpdate",
 	} })
-	use({ "nvim-treesitter/nvim-treesitter-context", disable = vim.g.vscode })
+	use("nvim-treesitter/nvim-treesitter-context")
 
-	use({ "ThePrimeagen/harpoon", disable = vim.g.vscode })
-	use({ "mbbill/undotree", disable = vim.g.vscode })
+	use("ThePrimeagen/harpoon")
+	use("mbbill/undotree")
+	use("github/copilot.vim")
+	use("folke/trouble.nvim")
+	use("nvim-lualine/lualine.nvim")
+	use("stevearc/oil.nvim")
 
-	use({ "github/copilot.vim", disable = vim.g.vscode })
-	use({ "sourcegraph/sg.nvim", run = "nvim -l build/init.lua" })
+	-- Colorschemes
+	use("rebelot/kanagawa.nvim")
+	use({ "kepano/flexoki-neovim", as = "flexoki" })
 
-	use({ "folke/trouble.nvim", disable = vim.g.vscode })
-
+	-- Language tools
+	use("mhartington/formatter.nvim")
 	use({
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v2.x",
 		disable = vim.g.vscode,
 		requires = {
-			{ "neovim/nvim-lspconfig", disable = vim.g.vscode },
+			"neovim/nvim-lspconfig",
 			{
 				"williamboman/mason.nvim",
-				disable = vim.g.vscode,
 				run = function()
 					pcall(vim.cmd, "MasonUpdate")
 				end,
 			},
-			{ "williamboman/mason-lspconfig.nvim", disable = vim.g.vscode },
-			{ "hrsh7th/nvim-cmp", disable = vim.g.vscode },
-			{ "hrsh7th/cmp-nvim-lsp", disable = vim.g.vscode },
-			{ "L3MON4D3/LuaSnip", disable = vim.g.vscode },
+			"williamboman/mason-lspconfig.nvim",
+			"hrsh7th/nvim-cmp",
+			"hrsh7th/cmp-nvim-lsp",
+			"L3MON4D3/LuaSnip",
 		},
 	})
-	use("nvim-lualine/lualine.nvim")
-	use({ "mhartington/formatter.nvim", disable = vim.g.vscode })
-	use({ "stevearc/oil.nvim", disable = vim.g.vscode })
-	use("fatih/vim-go")
-	use("rebelot/kanagawa.nvim")
-  use({ 'kepano/flexoki-neovim', as = 'flexoki' })
 	use("mrcjkb/haskell-tools.nvim")
 	use("rescript-lang/vim-rescript")
+	use("fatih/vim-go")
+	use({
+		"pmizio/typescript-tools.nvim",
+		requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		config = function()
+			require("typescript-tools").setup({})
+		end,
+	})
 end)
 
 require("remap")
