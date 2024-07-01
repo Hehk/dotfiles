@@ -43,14 +43,14 @@ lsp.on_attach(function(_, bufnr)
 	end
 
 	map("gd", vim.lsp.buf.definition)
-	map("gD", vim.lsp.buf.type_definition)
-	map("g<C-D>", vim.lsp.buf.implementation)
-	map("gA", vim.lsp.buf.references)
+	map("gt", vim.lsp.buf.type_definition)
+	map("gi", vim.lsp.buf.implementation)
+	map("ga", vim.lsp.buf.references)
 	map("g.", vim.lsp.buf.code_action)
 	map("gs", vim.lsp.buf.workspace_symbol)
+	map("gh", vim.lsp.buf.signature_help)
 	map("cd", vim.lsp.buf.rename)
 	map("K", vim.lsp.buf.hover)
-	map("gh", vim.lsp.buf.signature_help)
 
 	map("[d", vim.diagnostic.goto_prev)
 	map("]d", vim.diagnostic.goto_next)
@@ -76,17 +76,6 @@ lsp.setup()
 
 local config = require("lspconfig")
 
-config.tailwindcss.setup({
-	settings = {
-		tailwindCSS = {
-			experimental = {
-				classRegex = {
-					{ "cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]" },
-				},
-			},
-		},
-	},
-})
 config.biome.setup({
 	cmd = { "npx", "biome", "lsp-proxy" },
 })
@@ -96,6 +85,8 @@ config.pyright.setup({
 config.sourcekit.setup({})
 config.rescriptls.setup({})
 config.ocamllsp.setup({})
+config.gleam.setup({})
+
 vim.diagnostic.config({
 	virtual_text = true,
 })

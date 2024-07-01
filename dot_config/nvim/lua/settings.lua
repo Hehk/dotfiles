@@ -16,3 +16,11 @@ vim.opt.incsearch = true
 vim.opt.scrolloff = 12
 vim.opt.updatetime = 50
 vim.opt.clipboard = "unnamed"
+
+-- Quick fix list setting
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "qf",
+  callback = function ()
+    vim.cmd("wincmd L")
+  end
+})

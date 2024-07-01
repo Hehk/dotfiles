@@ -20,7 +20,12 @@ require("packer").startup(function(use)
 
 	use("ThePrimeagen/harpoon")
 	use("mbbill/undotree")
-	use("github/copilot.vim")
+
+	use({
+		"supermaven-inc/supermaven-nvim",
+		config = function()
+		end,
+	})
 	use("folke/trouble.nvim")
 	use("nvim-lualine/lualine.nvim")
 	use("stevearc/oil.nvim")
@@ -28,6 +33,7 @@ require("packer").startup(function(use)
 	-- Colorschemes
 	use("rebelot/kanagawa.nvim")
 	use({ "kepano/flexoki-neovim", as = "flexoki" })
+  use("rktjmp/lush.nvim")
 
 	-- Language tools
 	use("mhartington/formatter.nvim")
@@ -37,18 +43,13 @@ require("packer").startup(function(use)
 		disable = vim.g.vscode,
 		requires = {
 			"neovim/nvim-lspconfig",
-			{
-				"williamboman/mason.nvim",
-				run = function()
-					pcall(vim.cmd, "MasonUpdate")
-				end,
-			},
-			"williamboman/mason-lspconfig.nvim",
 			"hrsh7th/nvim-cmp",
 			"hrsh7th/cmp-nvim-lsp",
 			"L3MON4D3/LuaSnip",
 		},
 	})
+
+  -- Lanugae specific tools
 	use("mrcjkb/haskell-tools.nvim")
 	use("rescript-lang/vim-rescript")
 	use("fatih/vim-go")
@@ -63,3 +64,4 @@ end)
 
 require("remap")
 require("settings")
+require("extract")
