@@ -1,5 +1,9 @@
 function SetupFlexoki(background)
 	local c = require("flexoki.palette").palette()
+  local bg = c["bg"]
+  local bg2 = c["bg-2"]
+  local bg3 = c["bg-3"]
+
 	local t = c["tx"]
 	local t2 = c["tx-2"]
 	local t3 = c["tx-3"]
@@ -14,6 +18,9 @@ function SetupFlexoki(background)
 	require("flexoki").colorscheme({
 		variant = background,
 		highlight_groups = {
+      ["CursorColumn"] = { bg = bg2 },
+      ["CursorLine"] = { bg = bg2 },
+
 			["String"] = { fg = t, bg = "None" },
 
 			["Constant"] = { fg = t, bg = "None" },
@@ -31,16 +38,16 @@ function SetupFlexoki(background)
       ["Structure"] = { fg = t, bg = "None" },
       ["Special"] = { fg = t, bg = "None" },
 
-			["Comment"] = { fg = t2, bg = "None" },
+			["Comment"] = { fg = t2, bg = "None", italic = true },
 			["Operator"] = { fg = t2, bg = "None" },
 			["Delimiter"] = { fg = t3, bg = "None" },
 
 			["Error"] = { fg = red, bg = "None", underline = true },
-			["DiagnosticError"] = { fg = red, bg = "None", underline = true },
-			["DiagnosticUnderlineError"] = { fg = red, bg = "None", underline = true },
+			["DiagnosticError"] = { fg = red, bg = "None" },
+			["DiagnosticUnderlineError"] = { fg = t, bg = "None", underline = true },
 
-			["DiagnosticUnnecessary"] = { fg = blue, bg = "None", underline = true },
-			["DiagnosticUnderlineUnnecessary"] = { fg = blue, bg = "None", underline = true },
+			["DiagnosticUnnecessary"] = { fg = blue, bg = "None" },
+			["DiagnosticUnderlineUnnecessary"] = { fg = t, bg = "None", underline = true },
 
 			["@type"] = { fg = purple, bg = "None" },
 
