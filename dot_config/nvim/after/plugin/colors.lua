@@ -29,6 +29,7 @@ function SetupFlexoki(background)
 			["Label"] = { fg = t, bg = "None" },
 			["Tag"] = { fg = t, bg = "None" },
       ["Structure"] = { fg = t, bg = "None" },
+      ["Special"] = { fg = t, bg = "None" },
 
 			["Comment"] = { fg = t2, bg = "None" },
 			["Operator"] = { fg = t2, bg = "None" },
@@ -49,6 +50,9 @@ function SetupFlexoki(background)
 			["@type.tsx"] = { link = "Tag" },
       ["@type.builtin.tsx"] = { link = "@type" },
 			["@lsp.type.class.typescriptreact"] = { link = "Identifier" },
+
+      -- Lua fixed
+      
 		},
 	})
 end
