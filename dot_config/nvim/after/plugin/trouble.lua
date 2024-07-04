@@ -1,7 +1,3 @@
-if vim.g.vscode then
-	return
-end
-
 require("trouble").setup({
 	icons = true,
 })
