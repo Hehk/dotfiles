@@ -80,7 +80,13 @@ config.pyright.setup({
 })
 config.sourcekit.setup({})
 config.rescriptls.setup({})
-config.ocamllsp.setup({})
+config.ocamllsp.setup({
+	settings = {
+		codelens = { enable = true },
+		inlayHints = { enable = true },
+		syntaxDocumentation = { enable = true },
+	},
+})
 config.gleam.setup({})
 config.clojure_lsp.setup({})
 

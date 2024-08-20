@@ -30,7 +30,7 @@ require("packer").startup(function(use)
 	})
 
 	-- Language tools
-	use("mhartington/formatter.nvim")
+	use("stevearc/conform.nvim")
 	use({
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v2.x",
@@ -42,7 +42,7 @@ require("packer").startup(function(use)
 		},
 	})
 
-	-- Lanugae specific tools
+	-- Langugae specific tools
 	use("mrcjkb/haskell-tools.nvim")
 	use("rescript-lang/vim-rescript")
 	use("fatih/vim-go")
@@ -53,6 +53,10 @@ require("packer").startup(function(use)
 			require("typescript-tools").setup({})
 		end,
 	})
+<<<<<<< HEAD
+=======
+
+>>>>>>> 843a2ed (move to conform and start setting up roc)
 	use("Olical/conjure")
 end)
 
