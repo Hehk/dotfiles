@@ -53,10 +53,7 @@ require("packer").startup(function(use)
 			require("typescript-tools").setup({})
 		end,
 	})
-<<<<<<< HEAD
-=======
 
->>>>>>> 843a2ed (move to conform and start setting up roc)
 	use("Olical/conjure")
 end)
 
