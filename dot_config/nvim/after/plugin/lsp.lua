@@ -82,6 +82,7 @@ config.sourcekit.setup({})
 config.rescriptls.setup({})
 config.ocamllsp.setup({})
 config.gleam.setup({})
+config.clojure_lsp.setup({})
 
 vim.diagnostic.config({
 	virtual_text = true,

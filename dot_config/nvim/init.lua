@@ -15,6 +15,7 @@ require("packer").startup(function(use)
 
 	use("ThePrimeagen/harpoon")
 	use("mbbill/undotree")
+	use("nvim-lualine/lualine.nvim")
 
 	use({
 		"supermaven-inc/supermaven-nvim",
@@ -23,6 +24,10 @@ require("packer").startup(function(use)
 	use("folke/trouble.nvim")
 	use("stevearc/oil.nvim")
 	use({ "kepano/flexoki-neovim", as = "flexoki" })
+	use({
+		"zenbones-theme/zenbones.nvim",
+		requires = "rktjmp/lush.nvim",
+	})
 
 	-- Language tools
 	use("mhartington/formatter.nvim")
@@ -48,6 +53,7 @@ require("packer").startup(function(use)
 			require("typescript-tools").setup({})
 		end,
 	})
+	use("Olical/conjure")
 end)
 
 require("remap")

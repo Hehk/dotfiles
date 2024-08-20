@@ -39,7 +39,7 @@ local formatters = {
 		},
 		stdin = true,
 	}),
-	c = filetypes.c.clangformat,
+	c = filetypes.c.clangformat
 }
 
 require("formatter").setup({ logging = true, log_level = vim.log.levels.DEBUG, filetype = formatters })
