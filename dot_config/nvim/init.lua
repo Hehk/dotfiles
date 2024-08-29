@@ -17,13 +17,30 @@ require("packer").startup(function(use)
 	use("mbbill/undotree")
 	use("nvim-lualine/lualine.nvim")
 
+	-- AI
 	use({
 		"supermaven-inc/supermaven-nvim",
 		config = function() end,
 	})
+	use({
+		"yetone/avante.nvim",
+		requires = {
+			"nvim-tree/nvim-web-devicons",
+			"stevearc/dressing.nvim",
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+			{
+				"MeanderingProgrammer/render-markdown.nvim",
+				opts = {
+					file_types = { "markdown", "Avante" },
+				},
+				ft = { "markdown", "Avante" },
+			},
+		},
+	})
+
 	use("folke/trouble.nvim")
 	use("stevearc/oil.nvim")
-	use({ "kepano/flexoki-neovim", as = "flexoki" })
 	use({
 		"zenbones-theme/zenbones.nvim",
 		requires = "rktjmp/lush.nvim",
