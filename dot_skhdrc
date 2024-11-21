@@ -1,22 +1,10 @@
 f1 : open -a Arc
 shift - f1 : Google Chrome
-
 f2 : open -a iTerm
-shift - f2 : open -a Visual\ Studio\ Code
-cmd - f2 : open -a Xcode
-
 f3 : open -a Obsidian
+f5 : ~/.local/bin/focus_dev_app
 
-f4 : open -a Zed
-
-f5 : open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
-
-f6 : open -a Slack
-shift - f6 : open -a Superhuman
-
+f6 : open -a Superhuman
 f7 : open -a Linear
-shift - f7 : open -a Figma
-
 f8 : open -a Preview
 f11 : open -a /Applications/Spotify.app/
-f12 : open -a Toggl\ Track

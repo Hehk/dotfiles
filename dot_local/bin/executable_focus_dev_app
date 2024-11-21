@@ -1,0 +1,22 @@
+#!/usr/bin/env bb
+
+(require '[babashka.process :refer [shell]])
+(require '[clojure.string :as str])
+
+(def running-apps (:out (shell {:out :string} "osascript -e 'tell application \"System Events\" to get name of every process where background only is false'")))
+(def running-apps (str/split (str/trim running-apps) #", "))
+(def apps ["Simulator" "Ride-4.5" "Google Chrome" "tengu"])
+(defn focus-app [app]
+    (shell {:out :string} (str "osascript -e 'tell application \"System Events\" to set frontmost of process \"" app "\" to true'")))
+
+(defn focus [apps]
+  (let [app (first apps)
+        rest (rest apps)]
+    (if app 
+      (do
+        (if (some #(= app %) running-apps)
+            (focus-app app)
+            (recur rest))))))
+
+(focus apps)
+

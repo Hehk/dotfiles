@@ -1,8 +1,5 @@
 local lsp = require("lsp-zero")
 lsp.preset("recommended")
-lsp.ensure_installed({
-	"rust_analyzer",
-})
 
 -- Fix Undefined global 'vim'
 lsp.nvim_workspace()
@@ -89,6 +86,7 @@ config.ocamllsp.setup({
 })
 config.gleam.setup({})
 config.clojure_lsp.setup({})
+config.rust_analyzer.setup({})
 
 vim.diagnostic.config({
 	virtual_text = true,
