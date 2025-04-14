@@ -13,7 +13,11 @@ require("packer").startup(function(use)
 	} })
 	use("nvim-treesitter/nvim-treesitter-context")
 
-	use("ThePrimeagen/harpoon")
+	use({
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" }
+  })
 	use("mbbill/undotree")
 	use("nvim-lualine/lualine.nvim")
 
@@ -22,22 +26,6 @@ require("packer").startup(function(use)
 		"supermaven-inc/supermaven-nvim",
 		config = function() end,
 	})
-	use({
-		"yetone/avante.nvim",
-		requires = {
-			"nvim-tree/nvim-web-devicons",
-			"stevearc/dressing.nvim",
-			"nvim-lua/plenary.nvim",
-			"MunifTanjim/nui.nvim",
-			{
-				"MeanderingProgrammer/render-markdown.nvim",
-				opts = {
-					file_types = { "markdown", "Avante" },
-				},
-				ft = { "markdown", "Avante" },
-			},
-		},
-	})
 
 	use("folke/trouble.nvim")
 	use("stevearc/oil.nvim")
@@ -45,6 +33,7 @@ require("packer").startup(function(use)
 		"zenbones-theme/zenbones.nvim",
 		requires = "rktjmp/lush.nvim",
 	})
+	use("f-person/auto-dark-mode.nvim")
 
 	-- Language tools
 	use("stevearc/conform.nvim")
@@ -60,6 +49,7 @@ require("packer").startup(function(use)
 	})
 
 	-- Langugae specific tools
+	use("ocaml-mlx/ocaml_mlx.nvim")
 	use("mrcjkb/haskell-tools.nvim")
 	use("rescript-lang/vim-rescript")
 	use("fatih/vim-go")

@@ -1,5 +1,9 @@
 local telescope = require("telescope")
-telescope.setup({})
+telescope.setup({
+  defaults = {
+    path_display = 'shorten',
+  },
+})
 
 local builtin = require("telescope.builtin")
 local themes = require("telescope.themes")

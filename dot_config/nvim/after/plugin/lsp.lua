@@ -87,6 +87,7 @@ config.ocamllsp.setup({
 config.gleam.setup({})
 config.clojure_lsp.setup({})
 config.rust_analyzer.setup({})
+config.zig.setup({})
 
 vim.diagnostic.config({
 	virtual_text = true,

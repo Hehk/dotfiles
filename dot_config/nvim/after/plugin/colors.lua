@@ -1,3 +1,5 @@
+local auto_dark_mode = require("auto-dark-mode")
+
 local function SetColors(color, background)
 	color = (color or "zenwritten")
 	background = (background or "light")
@@ -13,3 +15,12 @@ local function SetColors(color, background)
 end
 
 SetColors()
+auto_dark_mode.setup({
+	update_interval = 1000,
+	set_dark_mode = function()
+		SetColors("zenbones", "dark")
+	end,
+	set_light_mode = function()
+		SetColors("zenbones", "light")
+	end,
+})

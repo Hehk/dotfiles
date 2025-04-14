@@ -1,26 +1,30 @@
-local mark = require("harpoon.mark")
-local ui = require("harpoon.ui")
+local harpoon = require("harpoon")
 
-local function noremap(key, command)
-	return vim.keymap.set("n", key, command, { noremap = true })
+harpoon.setup()
+local conf = require("telescope.config").values
+local function toggle_telescope(harpoon_files)
+    local file_paths = {}
+    for _, item in ipairs(harpoon_files.items) do
+        table.insert(file_paths, item.value)
+    end
+
+    require("telescope.pickers").new({}, {
+        prompt_title = "Harpoon",
+        finder = require("telescope.finders").new_table({
+            results = file_paths,
+        }),
+        previewer = false,
+        sorter = conf.generic_sorter({}),
+    }):find()
 end
 
-noremap("<leader>a", mark.add_file)
-noremap("<C-e>", ui.toggle_quick_menu)
-noremap("<leader>hc", mark.clear_all)
 
-noremap("<C-h>", function()
-	return ui.nav_file(1)
-end)
+vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
+vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end,
+    { desc = "Open harpoon window" })
+vim.keymap.set("n", "<leader>d", function() harpoon:list():clear() end)
 
-noremap("<C-j>", function()
-	return ui.nav_file(2)
-end)
-
-noremap("<C-k>", function()
-	return ui.nav_file(3)
-end)
-
-noremap("<C-l>", function()
-	return ui.nav_file(4)
-end)
+vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
+vim.keymap.set("n", "<C-j>", function() harpoon:list():select(2) end)
+vim.keymap.set("n", "<C-k>", function() harpoon:list():select(3) end)
+vim.keymap.set("n", "<C-l>", function() harpoon:list():select(4) end)
