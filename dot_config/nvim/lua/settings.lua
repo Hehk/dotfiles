@@ -20,7 +20,16 @@ vim.opt.clipboard = "unnamed"
 -- Quick fix list setting
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "qf",
-  callback = function ()
+  callback = function()
     vim.cmd("wincmd L")
   end
 })
+
+vim.diagnostic.config({
+  virtual_text = true,
+  float = true,
+})
+
+-- Highlighting the cursor line and column
+vim.opt.cursorline = true
+vim.opt.cursorcolumn = true
