@@ -73,13 +73,6 @@ return {
     end
   },
   {
-    'saghen/blink.cmp',
-    build = 'cargo build --release',
-    opts = {
-      completion = { menu = { auto_show = true } },
-    }
-  },
-  {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -217,9 +210,10 @@ return {
           lua = { "stylua" },
           javascript = { { "biome", "prettierd", "prettier", stop_after_first = true } },
           javascriptreact = { { "biome", "prettierd", "prettier", stop_after_first = true } },
-          typescript = { "biome", "prettierd", "prettier", stop_after_first = true },
-          typescriptreact = { "biome", "prettierd", "prettier", stop_after_first = true },
+          typescript = { { "biome", "prettierd", "prettier", stop_after_first = true } },
+          typescriptreact = { { "biome", "prettierd", "prettier", stop_after_first = true } },
           clojure = { "cljfmt" },
+          ocaml = { 'ocamlformat' }
         },
       })
 
@@ -245,7 +239,7 @@ return {
 
   {
     'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
+    build = ':TSUpdate',
     config = function()
       require("nvim-treesitter.configs").setup({
         ensure_installed = { "javascript", "typescript", "rust", "lua" },
@@ -283,78 +277,74 @@ return {
   },
   { 'nvim-treesitter/nvim-treesitter-context' },
 
+  -- Native LSP setup using Neovim 0.11+ built-in LSP
   {
-    "VonHeikemen/lsp-zero.nvim",
-    branch = "v2.x",
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      'saghen/blink.cmp'
+    'saghen/blink.cmp',
+    build = 'cargo build --release',
+    lazy = false,
+    priority = 900,
+    opts = {
+      completion = { menu = { auto_show = true } },
     },
-    config = function()
-      local lsp = require("lsp-zero")
-      lsp.preset("recommended")
+    config = function(_, opts)
+      require('blink.cmp').setup(opts)
 
-      -- Fix Undefined global 'vim'
-      lsp.nvim_workspace()
+      -- Setup diagnostic signs
+      local signs = { Error = "E", Warn = "W", Hint = "H", Info = "I" }
+      for type, icon in pairs(signs) do
+        local hl = "DiagnosticSign" .. type
+        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+      end
 
-      lsp.set_preferences({
-        suggest_lsp_servers = true,
-        sign_icons = {
-          error = "E",
-          warn = "W",
-          hint = "H",
-          info = "I",
-        },
+      -- Setup LSP keybindings on attach
+      vim.api.nvim_create_autocmd('LspAttach', {
+        callback = function(args)
+          local bufnr = args.buf
+          local opts = { buffer = bufnr, remap = false }
+          local function map(shortcut, f)
+            vim.keymap.set("n", shortcut, f, opts)
+          end
+
+          map("gd", vim.lsp.buf.definition)
+          map("gt", vim.lsp.buf.type_definition)
+          map("gi", vim.lsp.buf.implementation)
+          map("ga", vim.lsp.buf.references)
+          map("g.", vim.lsp.buf.code_action)
+          map("gs", vim.lsp.buf.workspace_symbol)
+          map("gh", vim.lsp.buf.signature_help)
+          map("cd", vim.lsp.buf.rename)
+          map("K", vim.lsp.buf.hover)
+
+          map("[d", function()
+            vim.diagnostic.jump({ count = -1 })
+          end)
+          map("]d", function()
+            vim.diagnostic.jump({ count = 1 })
+          end)
+          map("[e", function()
+            vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, count = -1 })
+          end)
+          map("]e", function()
+            vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, count = 1 })
+          end)
+          map("[w", function()
+            vim.diagnostic.jump({ severity = vim.diagnostic.severity.WARN, count = -1 })
+          end)
+          map("]w", function()
+            vim.diagnostic.jump({ severity = vim.diagnostic.severity.WARN, count = 1 })
+          end)
+
+          vim.keymap.set("n", "gw", function()
+            vim.diagnostic.open_float()
+          end, opts)
+        end
       })
 
-      lsp.on_attach(function(_, bufnr)
-        local opts = { buffer = bufnr, remap = false }
-        local function map(shortcut, f)
-          vim.keymap.set("n", shortcut, f, opts)
-        end
-
-        map("gd", vim.lsp.buf.definition)
-        map("gt", vim.lsp.buf.type_definition)
-        map("gi", vim.lsp.buf.implementation)
-        map("ga", vim.lsp.buf.references)
-        map("g.", vim.lsp.buf.code_action)
-        map("gs", vim.lsp.buf.workspace_symbol)
-        map("gh", vim.lsp.buf.signature_help)
-        map("cd", vim.lsp.buf.rename)
-        map("K", vim.lsp.buf.hover)
-
-        map("[d", function()
-          vim.diagnostic.jump({ count = -1 })
-        end)
-        map("]d", function()
-          vim.diagnostic.jump({ count = 1 })
-        end)
-        map("[e", function()
-          vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, count = -1 })
-        end)
-        map("]e", function()
-          vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, count = 1 })
-        end)
-        map("[w", function()
-          vim.diagnostic.jump({ severity = vim.diagnostic.severity.WARN, count = -1 })
-        end)
-        map("]w", function()
-          vim.diagnostic.jump({ severity = vim.diagnostic.severity.WARN, count = 1 })
-        end)
-
-        vim.keymap.set("n", "gw", function()
-          vim.diagnostic.open_float()
-        end, opts)
-      end)
-
-      lsp.setup()
-
-      local config = require("lspconfig")
-
-      config.biome.setup({
+      -- Configure language servers
+      vim.lsp.config('biome', {
         cmd = { "npx", "biome", "lsp-proxy" },
       })
-      config.gopls.setup({})
+      vim.lsp.config('gopls', {})
 
       vim.lsp.config('eslint', {})
       local eslint_on = false
@@ -367,22 +357,20 @@ return {
       -- Eventually, Id like this to generalize to toggling linters in general
       vim.keymap.set('n', 'gL', toggle_eslint, { desc = 'Toggle linting' })
 
-      config.pyright.setup({
-        settings = {},
-      })
-      config.sourcekit.setup({})
-      config.rescriptls.setup({})
-      config.ocamllsp.setup({
+      vim.lsp.config('pyright', {})
+      vim.lsp.config('sourcekit', {})
+      vim.lsp.config('rescriptls', {})
+      vim.lsp.config('ocamllsp', {
         settings = {
           codelens = { enable = true },
           inlayHints = { enable = true },
           syntaxDocumentation = { enable = true },
         },
       })
-      config.gleam.setup({})
-      config.clojure_lsp.setup({})
-      config.rust_analyzer.setup({})
-      config.graphql.setup({})
+      vim.lsp.config('gleam', {})
+      vim.lsp.config('clojure_lsp', {})
+      vim.lsp.config('rust_analyzer', {})
+      vim.lsp.config('graphql', {})
 
       vim.diagnostic.config({
         virtual_text = true,
@@ -397,7 +385,7 @@ return {
   },
   {
     "pmizio/typescript-tools.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    dependencies = { "nvim-lua/plenary.nvim" },
     ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
     config = function()
       require("typescript-tools").setup({})
