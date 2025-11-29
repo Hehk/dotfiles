@@ -25,9 +25,16 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
+-- Diagnostic configuration
+-- NOTE: For OCaml projects, diagnostics require 'dune build' to be run first.
+-- For real-time diagnostics, run 'dune build -w' in a separate terminal.
 vim.diagnostic.config({
-  virtual_text = true,
-  float = true,
+  virtual_text = true,           -- Show inline diagnostic messages
+  float = true,                  -- Enable floating diagnostic windows
+  signs = true,                  -- Show signs in the gutter
+  underline = true,              -- Underline diagnostic locations
+  update_in_insert = false,      -- Don't update diagnostics while typing
+  severity_sort = true,          -- Sort by severity (errors first)
 })
 
 -- Highlighting the cursor line and column
