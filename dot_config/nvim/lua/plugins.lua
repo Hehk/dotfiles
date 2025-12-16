@@ -226,6 +226,7 @@ return {
 					typescriptreact = { { "biome", "prettierd", "prettier", stop_after_first = true } },
 					clojure = { "cljfmt" },
 					ocaml = { "ocamlformat" },
+					lean = { "lean" },
 				},
 			})
 
@@ -461,8 +462,32 @@ return {
 		lazy = false,
 		priority = 1000,
 		config = function()
-			-- Let the paper theme handle dark/light mode detection automatically
 			vim.cmd.colorscheme("paper")
 		end,
+	},
+	{
+		"Julian/lean.nvim",
+		event = { "BufReadPre *.lean", "BufNewFile *.lean" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+		opts = {
+			mappings = true,
+			lsp = {
+				init_options = {
+					editDelay = 10,
+					hasWidgets = true,
+				},
+			},
+			infoview = {
+				autoopen = true,
+				width = 50,
+				height = 20,
+			},
+			abbreviations = {
+				enable = true,
+			},
+		},
 	},
 }

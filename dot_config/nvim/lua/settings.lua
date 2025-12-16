@@ -19,24 +19,42 @@ vim.opt.clipboard = "unnamed"
 
 -- Quick fix list setting
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "qf",
-  callback = function()
-    vim.cmd("wincmd L")
-  end
+	pattern = "qf",
+	callback = function()
+		vim.cmd("wincmd L")
+	end,
 })
 
--- Diagnostic configuration
--- NOTE: For OCaml projects, diagnostics require 'dune build' to be run first.
--- For real-time diagnostics, run 'dune build -w' in a separate terminal.
 vim.diagnostic.config({
-  virtual_text = true,           -- Show inline diagnostic messages
-  float = true,                  -- Enable floating diagnostic windows
-  signs = true,                  -- Show signs in the gutter
-  underline = true,              -- Underline diagnostic locations
-  update_in_insert = false,      -- Don't update diagnostics while typing
-  severity_sort = true,          -- Sort by severity (errors first)
+	virtual_text = {
+		-- Truncate virtual text to prevent overflow
+		prefix = "",
+		spacing = 4,
+		source = "if_many",
+		format = function(diagnostic)
+			local message = diagnostic.message:gsub("\n", " ")
+			if #message > 80 then
+				return message:sub(1, 77) .. "..."
+			end
+			return message
+		end,
+	},
+	float = {
+		border = "rounded",
+		source = "always",
+		-- header = "",
+		-- prefix = "",
+	},
+	signs = true,
+	underline = true,
+	update_in_insert = false,
+	severity_sort = true,
 })
 
 -- Highlighting the cursor line and column
 vim.opt.cursorline = true
 vim.opt.cursorcolumn = true
+
+-- Additional diagnostic keybindings for better workflow
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic error details" })
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Add diagnostics to location list" })

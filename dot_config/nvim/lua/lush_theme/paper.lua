@@ -38,33 +38,34 @@ local function detect_dark_mode()
 	return false
 end
 
-local is_dark_mode = detect_dark_mode()
-
-local colors = {}
-if is_dark_mode then
-	colors.fg = "White"
-	colors.bg = "Black"
-	colors.fg_alt = "LightGray"
-	colors.bg_alt = "DarkGray"
-	colors.cursor_line = "DarkGray"
-	colors.selection = "DarkGray"
-	colors.border = "Gray"
-	colors.comment = "Gray"
-	colors.delimiter = "Gray"
-else
-	colors.fg = "Black"
-	colors.bg = "White"
-	colors.fg_alt = "DarkGray"
-	colors.bg_alt = "LightGray"
-	colors.cursor_line = "LightGray"
-	colors.selection = "LightGray"
-	colors.border = "DarkGray"
-	colors.comment = "DarkGray"
-	colors.delimiter = "DarkGray"
-end
-
 local theme = lush(function(injected_functions)
 	local sym = injected_functions.sym
+	
+	-- Always detect dark mode fresh each time the theme function is called
+	local is_dark_mode = detect_dark_mode()
+	
+	local colors = {}
+	if is_dark_mode then
+		colors.fg = "White"
+		colors.bg = "Black"
+		colors.fg_alt = "LightGray"
+		colors.bg_alt = "DarkGray"
+		colors.cursor_line = "DarkGray"
+		colors.selection = "DarkGray"
+		colors.border = "Gray"
+		colors.comment = "Gray"
+		colors.delimiter = "Gray"
+	else
+		colors.fg = "Black"
+		colors.bg = "White"
+		colors.fg_alt = "DarkGray"
+		colors.bg_alt = "LightGray"
+		colors.cursor_line = "LightGray"
+		colors.selection = "LightGray"
+		colors.border = "DarkGray"
+		colors.comment = "DarkGray"
+		colors.delimiter = "DarkGray"
+	end
 	return {
 		-- Editor highlights
 		Normal({ fg = colors.fg, bg = colors.bg }),
@@ -255,3 +256,4 @@ local theme = lush(function(injected_functions)
 end)
 
 return theme
+
