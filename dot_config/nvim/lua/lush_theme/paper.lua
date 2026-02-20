@@ -2,70 +2,48 @@ local lush = require("lush")
 
 --[[
 
-The main idea for this theme, is to have almost no syntax highlighting.
-This theme now supports both light and dark variants with automatic detection.
+The main idea for this theme is to have almost no syntax highlighting.
+Supports light and dark variants with automatic detection.
+
+Palettes can be selected via vim.g.paper_palette (e.g. "flexoki_light",
+"flexoki_dark"). When unset, the palette is chosen automatically based
+on vim.o.background.
 
 ]]
 
-local function detect_dark_mode()
-	if vim.o.background == "dark" then
-		return true
-	elseif vim.o.background == "light" then
-		return false
-	end
+local palettes = {
+	flexoki_light = {
+		fg = "#100f0f", -- black (tx)
+		bg = "#fffcf0", -- paper (bg)
+		fg_alt = "#6f6e69", -- base-600 (tx-2)
+		bg_alt = "#e6e4d9", -- base-100 (ui)
+		cursor_line = "#f2f0e5", -- base-50  (bg-2)
+		selection = "#cecdc3", -- base-200 (ui-3)
+		border = "#b7b5ac", -- base-300 (tx-3)
+		comment = "#6f6e69", -- base-600 (tx-2)
+		delimiter = "#6f6e69", -- base-600 (tx-2)
+	},
+	flexoki_dark = {
+		fg = "#cecdc3", -- base-200 (tx)
+		bg = "#100f0f", -- black (bg)
+		fg_alt = "#878580", -- base-500 (tx-2)
+		bg_alt = "#343331", -- base-850 (ui)
+		cursor_line = "#1c1b1a", -- base-950 (bg-2)
+		selection = "#403e3c", -- base-800 (ui-2)
+		border = "#575653", -- base-700 (ui-3)
+		comment = "#878580", -- base-500 (tx-2)
+		delimiter = "#878580", -- base-500 (tx-2)
+	},
+}
 
-	local colorfgbg = os.getenv("COLORFGBG")
-	if colorfgbg then
-		local bg = colorfgbg:match(";(%d+)$")
-		if bg then
-			local bg_num = tonumber(bg)
-			if bg_num and bg_num < 8 then
-				return true
-			end
-		end
-	end
-
-	local dark_mode_env = os.getenv("NVIM_DARK_MODE")
-	if dark_mode_env and (dark_mode_env == "1" or dark_mode_env:lower() == "true") then
-		return true
-	end
-
-	local macos_dark = os.getenv("DARK_MODE")
-	if macos_dark and (macos_dark == "1" or macos_dark:lower() == "true") then
-		return true
-	end
-
-	return false
+local palette_name = vim.g.paper_palette
+if not palette_name then
+	palette_name = vim.o.background == "dark" and "flexoki_dark" or "flexoki_light"
 end
+local colors = assert(palettes[palette_name], "paper: unknown palette " .. tostring(palette_name))
 
 local theme = lush(function(injected_functions)
 	local sym = injected_functions.sym
-	
-	-- Always detect dark mode fresh each time the theme function is called
-	local is_dark_mode = detect_dark_mode()
-	
-	local colors = {}
-	if is_dark_mode then
-		colors.fg = "White"
-		colors.bg = "Black"
-		colors.fg_alt = "LightGray"
-		colors.bg_alt = "DarkGray"
-		colors.cursor_line = "DarkGray"
-		colors.selection = "DarkGray"
-		colors.border = "Gray"
-		colors.comment = "Gray"
-		colors.delimiter = "Gray"
-	else
-		colors.fg = "Black"
-		colors.bg = "White"
-		colors.fg_alt = "DarkGray"
-		colors.bg_alt = "LightGray"
-		colors.cursor_line = "LightGray"
-		colors.selection = "LightGray"
-		colors.border = "DarkGray"
-		colors.comment = "DarkGray"
-		colors.delimiter = "DarkGray"
-	end
 	return {
 		-- Editor highlights
 		Normal({ fg = colors.fg, bg = colors.bg }),
@@ -256,4 +234,3 @@ local theme = lush(function(injected_functions)
 end)
 
 return theme
-

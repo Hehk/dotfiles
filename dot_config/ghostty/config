@@ -1,4 +1,5 @@
 font-size = 20
-font-family = Iosevka Slab
+font-family = JetBrains Mono
 
-theme = flexoki-light
+theme = Flexoki Light
+

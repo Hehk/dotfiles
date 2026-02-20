@@ -220,10 +220,10 @@ return {
 			require("conform").setup({
 				formatters_by_ft = {
 					lua = { "stylua" },
-					javascript = { { "biome", "prettierd", "prettier", stop_after_first = true } },
-					javascriptreact = { { "biome", "prettierd", "prettier", stop_after_first = true } },
-					typescript = { { "biome", "prettierd", "prettier", stop_after_first = true } },
-					typescriptreact = { { "biome", "prettierd", "prettier", stop_after_first = true } },
+					javascript = { "biome", "prettierd", "prettier", stop_after_first = true },
+					javascriptreact = { "biome", "prettierd", "prettier", stop_after_first = true },
+					typescript = { "biome", "prettierd", "prettier", stop_after_first = true },
+					typescriptreact = { "biome", "prettierd", "prettier", stop_after_first = true },
 					clojure = { "cljfmt" },
 					ocaml = { "ocamlformat" },
 					lean = { "lean" },
@@ -254,7 +254,7 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		config = function()
-			require("nvim-treesitter.configs").setup({
+			require("nvim-treesitter.config").setup({
 				ensure_installed = { "javascript", "typescript", "rust", "lua", "ocaml" },
 				compilers = { "gcc" },
 				sync_install = false,
@@ -293,7 +293,9 @@ return {
 	-- LSP setup with nvim-lspconfig
 	{
 		"saghen/blink.cmp",
-		build = "cargo build --release",
+		-- blink.cmp's fuzzy matcher depends on a Rust nightly that currently builds frizbee successfully.
+		-- Using `cargo +<toolchain>` makes this resilient to upstream nightly breakage.
+		build = "cargo +nightly-2025-12-01 build --release",
 		lazy = false,
 		priority = 900,
 		dependencies = {
@@ -375,7 +377,7 @@ return {
 			})
 
 			-- Setup eslint with toggle functionality
-			local eslint_enabled = false
+			local eslint_enabled = true
 			vim.lsp.config("eslint", {
 				capabilities = capabilities,
 				autostart = eslint_enabled,
