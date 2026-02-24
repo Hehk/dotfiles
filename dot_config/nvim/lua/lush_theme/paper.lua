@@ -22,6 +22,10 @@ local palettes = {
 		border = "#b7b5ac", -- base-300 (tx-3)
 		comment = "#6f6e69", -- base-600 (tx-2)
 		delimiter = "#6f6e69", -- base-600 (tx-2)
+		diag_error = "#af3029", -- red-600
+		diag_warn = "#ad8301", -- yellow-600
+		diag_info = "#24837b", -- cyan-600
+		diag_hint = "#66800b", -- green-600
 	},
 	flexoki_dark = {
 		fg = "#cecdc3", -- base-200 (tx)
@@ -33,6 +37,10 @@ local palettes = {
 		border = "#575653", -- base-700 (ui-3)
 		comment = "#878580", -- base-500 (tx-2)
 		delimiter = "#878580", -- base-500 (tx-2)
+		diag_error = "#d14d41", -- red-400
+		diag_warn = "#d0a215", -- yellow-400
+		diag_info = "#3aa99f", -- cyan-400
+		diag_hint = "#879a39", -- green-400
 	},
 }
 
@@ -211,18 +219,22 @@ local theme = lush(function(injected_functions)
 		sym("@lsp.type.typeParameter")({ fg = colors.fg }),
 		sym("@lsp.type.variable")({ fg = colors.fg }),
 
-		DiagnosticError({ fg = colors.fg }),
-		DiagnosticWarn({ fg = colors.fg }),
-		DiagnosticInfo({ fg = colors.fg }),
-		DiagnosticHint({ fg = colors.fg }),
-		DiagnosticVirtualTextError({ fg = colors.fg }),
-		DiagnosticVirtualTextWarn({ fg = colors.fg }),
-		DiagnosticVirtualTextInfo({ fg = colors.fg }),
-		DiagnosticVirtualTextHint({ fg = colors.fg }),
-		DiagnosticUnderlineError({ sp = colors.fg, underline = false }),
-		DiagnosticUnderlineWarn({ sp = colors.fg, underline = false }),
-		DiagnosticUnderlineInfo({ sp = colors.fg, underline = false }),
-		DiagnosticUnderlineHint({ sp = colors.fg, underline = false }),
+		DiagnosticError({ fg = colors.diag_error, bold = true }),
+		DiagnosticWarn({ fg = colors.diag_warn }),
+		DiagnosticInfo({ fg = colors.diag_info }),
+		DiagnosticHint({ fg = colors.diag_hint }),
+		DiagnosticSignError({ fg = colors.diag_error, bold = true }),
+		DiagnosticSignWarn({ fg = colors.diag_warn }),
+		DiagnosticSignInfo({ fg = colors.diag_info }),
+		DiagnosticSignHint({ fg = colors.diag_hint }),
+		DiagnosticVirtualTextError({ fg = colors.diag_error }),
+		DiagnosticVirtualTextWarn({ fg = colors.diag_warn }),
+		DiagnosticVirtualTextInfo({ fg = colors.diag_info }),
+		DiagnosticVirtualTextHint({ fg = colors.diag_hint }),
+		DiagnosticUnderlineError({ sp = colors.diag_error, undercurl = true }),
+		DiagnosticUnderlineWarn({ sp = colors.diag_warn, undercurl = true }),
+		DiagnosticUnderlineInfo({ sp = colors.diag_info, undercurl = true }),
+		DiagnosticUnderlineHint({ sp = colors.diag_hint, undercurl = true }),
 
 		-- Git signs
 		GitSignsAdd({ fg = colors.fg }),
