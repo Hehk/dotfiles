@@ -4,6 +4,7 @@ f3 : open -a Obsidian
 f4 : open -a Zed
 f5 : ~/.local/bin/focus_dev_app
 
+f6 : open -a Opencode
 f7 : open -a Linear
 f8 : open -a Figma
 f9 : open -a Slack

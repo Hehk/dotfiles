@@ -15,61 +15,21 @@ return {
 			vim.keymap.set("n", "]g", "<cmd>GitGutterNextHunk<cr>", {})
 		end,
 	},
+
 	{
-		"chentoast/marks.nvim",
-		event = "VeryLazy",
-		opts = {},
-		config = function()
-			local marks = require("marks")
-			marks.setup({
-				mappings = {
-					next = "]m",
-					prev = "[m",
-				},
-			})
+		"dmtrKovalenko/fff.nvim",
+		build = function()
+			require("fff.download").download_or_build_binary()
 		end,
-	},
-
-	{
-		"nvim-telescope/telescope.nvim",
-		tag = "0.1.8",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-		},
+		lazy = false,
 		config = function()
-			require("telescope").setup({
-				pickers = {
-					find_files = {
-						theme = "ivy",
-					},
-				},
-				extensions = {
-					fzf = {},
-				},
-			})
-			require("telescope").load_extension("fzf")
+			require("fff").setup({})
 
-			local builtin = require("telescope.builtin")
-			local themes = require("telescope.themes")
+			local fff = require("fff")
 
-			local function find_files()
-				local dropdown = themes.get_dropdown({ previewer = false, path_display = { "truncate" } })
-				return builtin.find_files(dropdown)
-			end
-
-			local function git_files()
-				local opts = themes.get_dropdown({ previewer = false, path_display = { "truncate" } })
-				opts.show_untracked = true
-				return builtin.git_files(opts)
-			end
-
-			vim.keymap.set("n", "<C-p>", git_files, {})
-			vim.keymap.set("n", "<C-S-p>", find_files, {})
-
-			return vim.keymap.set("n", "<C-f>", function()
-				return builtin.live_grep({ path_display = { "truncate" } })
-			end, {})
+			vim.keymap.set("n", "<C-p>", fff.find_in_git_root, {})
+			vim.keymap.set("n", "<C-S-p>", fff.find_files, {})
+			vim.keymap.set("n", "<C-f>", fff.live_grep, {})
 		end,
 	},
 	{
@@ -472,7 +432,6 @@ return {
 		event = { "BufReadPre *.lean", "BufNewFile *.lean" },
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope.nvim",
 		},
 		opts = {
 			mappings = true,
