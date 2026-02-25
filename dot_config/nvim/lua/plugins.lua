@@ -26,8 +26,20 @@ return {
 			require("fff").setup({})
 
 			local fff = require("fff")
+			local function find_in_git_root()
+				local current_file = vim.api.nvim_buf_get_name(0)
+				local start_path = current_file ~= "" and vim.fs.dirname(current_file) or vim.uv.cwd()
+				local git_root = start_path and vim.fs.root(start_path, ".git")
 
-			vim.keymap.set("n", "<C-p>", fff.find_in_git_root, {})
+				if git_root then
+					fff.find_files_in_dir(git_root)
+					return
+				end
+
+				fff.find_in_git_root()
+			end
+
+			vim.keymap.set("n", "<C-p>", find_in_git_root, {})
 			vim.keymap.set("n", "<C-S-p>", fff.find_files, {})
 			vim.keymap.set("n", "<C-f>", fff.live_grep, {})
 		end,
