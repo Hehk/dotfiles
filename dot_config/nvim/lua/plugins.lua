@@ -3,10 +3,11 @@ return {
 	{ "tpope/vim-repeat" },
 	{
 		"tpope/vim-fugitive",
-		config = function()
-			vim.keymap.set("n", "<leader>gg", "<cmd>Git<cr>", {})
-			vim.keymap.set("n", "<leader>gb", "<cmd>Git blame<cr>", {})
-		end,
+		cmd = { "Git", "G", "Gvdiffsplit", "Glog" },
+		keys = {
+			{ "<leader>gg", "<cmd>Git<cr>", desc = "Fugitive status" },
+			{ "<leader>gb", "<cmd>Git blame<cr>", desc = "Git blame" },
+		},
 	},
 	{
 		"airblade/vim-gitgutter",
@@ -198,6 +199,8 @@ return {
 					typescriptreact = { "biome", "prettierd", "prettier", stop_after_first = true },
 					clojure = { "cljfmt" },
 					ocaml = { "ocamlformat" },
+					python = { "ruff_format" },
+					go = { "goimports", "gofmt" },
 					lean = { "lean" },
 				},
 			})
@@ -226,24 +229,17 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		config = function()
-			require("nvim-treesitter.config").setup({
-				ensure_installed = { "javascript", "typescript", "rust", "lua", "ocaml" },
-				compilers = { "gcc" },
-				sync_install = false,
-				auto_install = true,
+			require("nvim-treesitter.config").setup({})
 
-				highlight = {
-					enable = true,
-
-					disable = function(_, buf)
-						local max_filesize = 100 * 1024 -- 100 KB
-						local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-						if ok and stats and stats.size > max_filesize then
-							return true
-						end
-					end,
-					additional_vim_regex_highlighting = false,
-				},
+			local max_filesize = 100 * 1024 -- 100 KB
+			vim.api.nvim_create_autocmd("FileType", {
+				callback = function(args)
+					local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(args.buf))
+					if ok and stats and stats.size > max_filesize then
+						return
+					end
+					pcall(vim.treesitter.start, args.buf)
+				end,
 			})
 
 			require("treesitter-context").setup({
@@ -336,7 +332,7 @@ return {
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 			-- Enable LSP logging for debugging (set to 'debug' for verbose, 'off' to disable)
-			vim.lsp.set_log_level("debug")
+			vim.lsp.set_log_level("warn")
 			-- View logs with: :lua vim.cmd('edit ' .. vim.lsp.get_log_path())
 
 			vim.lsp.config("biome", {
@@ -347,6 +343,7 @@ return {
 			vim.lsp.config("gopls", {
 				capabilities = capabilities,
 			})
+			vim.lsp.enable("gopls")
 
 			-- Setup eslint with toggle functionality
 			local eslint_enabled = true
@@ -462,5 +459,16 @@ return {
 				enable = true,
 			},
 		},
+	},
+	{
+		"RRethy/vim-illuminate",
+		setup = function()
+			require("illuminate").configure({
+				providers = {
+					"treesitter",
+					"regex",
+				},
+			})
+		end,
 	},
 }

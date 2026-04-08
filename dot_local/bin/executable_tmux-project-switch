@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+PROJECTS_FILE="$HOME/.tmux-projects"
+LINE_NUMBER="$1"
+
+if [[ -z "$LINE_NUMBER" ]]; then
+    exit 0
+fi
+
+if [[ ! -f "$PROJECTS_FILE" ]]; then
+    tmux display-message "~/.tmux-projects not found"
+    exit 0
+fi
+
+selected=$(sed -n "${LINE_NUMBER}p" "$PROJECTS_FILE")
+
+# Strip whitespace
+selected=$(echo "$selected" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+
+# Skip empty lines and comments
+if [[ -z "$selected" || "$selected" == \#* ]]; then
+    tmux display-message "No project on line $LINE_NUMBER of ~/.tmux-projects"
+    exit 0
+fi
+
+# Expand tilde
+selected="${selected/#\~/$HOME}"
+
+if [[ ! -d "$selected" ]]; then
+    tmux display-message "Directory not found: $selected"
+    exit 0
+fi
+
+exec ~/.local/bin/tmux-sessionizer "$selected"
